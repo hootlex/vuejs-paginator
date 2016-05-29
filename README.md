@@ -10,7 +10,18 @@ npm install vuejs-paginator -save
 ## Usage
 Register VPaginator component inside your Vue instance.
 
-Use it in your HTML file.
+```js
+import VuePaginator from 'vuejs-paginator'
+new Vue({
+    ...
+    components: {
+        VPaginator: VuePaginator
+    },
+  ...
+});
+```
+
+Use it in your HTML.
 
 ```html
 <v-paginator :resource.sync="animals" :resource_url="api/animals"></v-paginator>
