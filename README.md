@@ -1,4 +1,4 @@
-# vue-paginator
+# Vue.js Paginator [![CircleCI](https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/hootlex/vuejs-paginator)
 
 > A Vue.js plugin to easily integrate pagination to your projects.
 
