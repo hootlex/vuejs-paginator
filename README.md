@@ -1,4 +1,4 @@
-# vue-paginator
+# Vue.js Paginator [![CircleCI](https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/hootlex/vuejs-paginator)
 
 > A Vue.js plugin to easily integrate pagination to your projects.
 
@@ -10,7 +10,18 @@ npm install vuejs-paginator -save
 ## Usage
 Register VPaginator component inside your Vue instance.
 
-Use it in your HTML file.
+```js
+import VuePaginator from 'vuejs-paginator'
+new Vue({
+    ...
+    components: {
+        VPaginator: VuePaginator
+    },
+  ...
+});
+```
+
+Use it in your HTML.
 
 ```html
 <v-paginator :resource.sync="animals" :resource_url="api/animals"></v-paginator>
