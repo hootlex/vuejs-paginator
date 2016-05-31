@@ -1,8 +1,8 @@
 {
   "current_page": 2,
   "last_page": 3,
-  "next_page_url": "http://hootlex.github.io/vuejs-paginator/samples/animals1.json",
-  "prev_page_url": "http://hootlex.github.io/vuejs-paginator/samples/animals3.json",
+  "next_page_url": "http://hootlex.github.io/vuejs-paginator/samples/animals3.json",
+  "prev_page_url": "http://hootlex.github.io/vuejs-paginator/samples/animals1.json",
   "data": [
     {
       "id": 6,
