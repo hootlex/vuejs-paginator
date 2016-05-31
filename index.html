@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Vuejs-paginator by hootlex</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,36 +9,37 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
+</head>
+
+<body>
     <section class="page-header">
-      <h1 class="project-name">Vuejs-paginator</h1>
-      <h2 class="project-tagline">A Vue.js plugin to easily integrate pagination.</h2>
-      <a href="https://github.com/hootlex/vuejs-paginator" class="btn">View on GitHub</a>
-      <a href="https://github.com/hootlex/vuejs-paginator/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/hootlex/vuejs-paginator/tarball/master" class="btn">Download .tar.gz</a>
+        <h1 class="project-name">Vuejs-paginator</h1>
+        <h2 class="project-tagline">A Vue.js plugin to easily integrate pagination.</h2>
+        <a href="https://github.com/hootlex/vuejs-paginator" class="btn">View on GitHub</a>
+        <a href="https://github.com/hootlex/vuejs-paginator/zipball/master" class="btn">Download .zip</a>
+        <a href="https://github.com/hootlex/vuejs-paginator/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
-      <h1>
+        <h1>
 <a id="vuejs-paginator-" class="anchor" href="#vuejs-paginator-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vue.js Paginator <a href="https://circleci.com/gh/hootlex/vuejs-paginator"><img src="https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&amp;circle-token=:circle-ci-badge-token" alt="CircleCI"></a>
 </h1>
 
-<blockquote>
-<p>A Vue.js plugin to easily integrate pagination to your projects.</p>
-</blockquote>
+        <blockquote>
+            <p>A Vue.js plugin to easily integrate pagination to your projects.</p>
+        </blockquote>
 
-<h2>
+        <h2>
 <a id="install-through-npm" class="anchor" href="#install-through-npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install Through npm</h2>
 
-<div class="highlight highlight-source-shell"><pre>npm install vuejs-paginator -save</pre></div>
+        <div class="highlight highlight-source-shell"><pre>npm install vuejs-paginator -save</pre></div>
 
-<h2>
+        <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Register VPaginator component inside your Vue instance.</p>
+        <p>Register VPaginator component inside your Vue instance.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">VuePaginator</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>vuejs-paginator<span class="pl-pds">'</span></span>
+        <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">VuePaginator</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>vuejs-paginator<span class="pl-pds">'</span></span>
 <span class="pl-k">new</span> <span class="pl-en">Vue</span>({
     <span class="pl-k">...</span>
     components<span class="pl-k">:</span> {
@@ -46,23 +48,23 @@
   <span class="pl-k">...</span>
 });</pre></div>
 
-<p>Use it in your HTML.</p>
+        <p>Use it in your HTML.</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-paginator</span> :<span class="pl-e">resource</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>animals<span class="pl-pds">"</span></span> :<span class="pl-e">resource</span>_url=<span class="pl-s"><span class="pl-pds">"</span>api/animals<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">v</span><span class="pl-e">-paginator</span>&gt;</pre></div>
+        <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-paginator</span> :<span class="pl-e">resource</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>animals<span class="pl-pds">"</span></span> :<span class="pl-e">resource</span>_url=<span class="pl-s"><span class="pl-pds">"</span>api/animals<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">v</span><span class="pl-e">-paginator</span>&gt;</pre></div>
 
-<h3>
+        <h3>
 <a id="thats-it" class="anchor" href="#thats-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>THATS IT</h3>
 
-<p>Then you will have access to the returned data inside your <code>resource</code> variable, in this example <strong>animals</strong>, and you'll be able to render it as you would normally do.</p>
+        <p>Then you will have access to the returned data inside your <code>resource</code> variable, in this example <strong>animals</strong>, and you'll be able to render it as you would normally do.</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-for</span>=<span class="pl-s"><span class="pl-pds">"</span>animal in animal<span class="pl-pds">"</span></span>&gt;
+        <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-for</span>=<span class="pl-s"><span class="pl-pds">"</span>animal in animal<span class="pl-pds">"</span></span>&gt;
   {{ animal.name }}
 &lt;/<span class="pl-ent">v</span><span class="pl-e">-for</span>&gt;</pre></div>
 
-<h2>
+        <h2>
 <a id="build-setup" class="anchor" href="#build-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build Setup</h2>
 
-<div class="highlight highlight-source-shell"><pre><span class="pl-c"># install dependencies</span>
+        <div class="highlight highlight-source-shell"><pre><span class="pl-c"># install dependencies</span>
 npm install
 
 <span class="pl-c"># build for production with minification</span>
@@ -73,14 +75,15 @@ npm run unit
 <span class="pl-c"># run all tests</span>
 npm <span class="pl-c1">test</span></pre></div>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/hootlex/vuejs-paginator">Vuejs-paginator</a> is maintained by <a href="https://github.com/hootlex">hootlex</a>.</span>
+        <footer class="site-footer">
+            <span class="site-footer-owner"><a href="https://github.com/hootlex/vuejs-paginator">Vuejs-paginator</a> is maintained by <a href="https://github.com/hootlex">hootlex</a>.</span>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+            <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+        </footer>
 
     </section>
 
-  
-  </body>
+    <script type="text/javascript" src="vuejs-paginator.js"></script>
+</body>
+
 </html>
