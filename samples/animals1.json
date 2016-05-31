@@ -1,0 +1,28 @@
+{
+  "current_page": 1,
+  "last_page": 3,
+  "next_page_url": "http://hootlex.github.io/vuejs-paginator/samples/animals2.json",
+  "prev_page_url": null,
+  "data": [
+    {
+      "id": 1,
+      "name": "Crocodile"
+    },
+    {
+      "id": 2,
+      "name": "Bobcat"
+    },
+    {
+      "id": 3,
+      "name": "Elephant"
+    },
+    {
+      "id": 4,
+      "name": "bandicoot"
+    },
+    {
+      "id": 5,
+      "name": "barracuda"
+    }
+  ]
+}
