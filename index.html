@@ -1,89 +1,380 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Vuejs-paginator by hootlex</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  <meta charset="UTF-8">
+  <title>Vue.js Paginator - Pagination with Vue.js made simple.</title>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600|Source+Code+Pro' rel='stylesheet' type='text/css'> -->
+  <!--
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+-->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="stylesheets/docs.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/extra-docs.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism-coy.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
 </head>
 
 <body>
-    <section class="page-header">
-        <h1 class="project-name">Vuejs-paginator</h1>
-        <h2 class="project-tagline">A Vue.js plugin to easily integrate pagination.</h2>
-        <a href="https://github.com/hootlex/vuejs-paginator" class="btn">View on GitHub</a>
-        <a href="https://github.com/hootlex/vuejs-paginator/zipball/master" class="btn">Download .zip</a>
-        <a href="https://github.com/hootlex/vuejs-paginator/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+  <div id="wrapper">
+    <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">VueJS Paginator</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="https://github.com/hootlex/vuejs-paginator">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            GitHub
+          </a></li>
+          <li><a href="https://twitter.com/hootlex">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            Twitter
+          </a></li>
+        </ul>
+      </div>
+  </header>
+    <div class="bs-docs-header">
+      <div class="container">
+        <h1>Vue.js Paginator</h1>
+        <p>Pagination with <a target="_blank" href="http://vuejs.org/">Vue.js</a> made simple.</p>
+        <br>
+        <p>
+          <a class="btn btn-outline-inverse btn-lg" href="https://github.com/hootlex/vuejs-paginator">
+            Code on GitHub
+          </a>
+          <a class="btn btn-outline-inverse btn-lg" href="https://www.npmjs.com/package/vuejs-paginator">
+            Available on npm
+          </a>
+          <a class="btn btn-outline-inverse btn-lg" href="https://cdnjs.com/libraries/vuejs-paginator">
+            Available on cdnjs
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="bs-docs-section" id="getting-started">
+            <h1 class="page-header">What it does</h1>
+            <div class="bs-callout bs-callout-success">
+              <h4>What it does</h4>
+              <p>
+                Vuejs Paginator takes a <code>resource_url</code> and a <code>resource</code> empty variable and it fetches the data from the provided URL.
+                When the call is done, it adds the returned data to the <code>resource</code> variable.
+              </p>
+            </div>
+          </div>
 
-    <section class="main-content">
-        <h1>
-<a id="vuejs-paginator-" class="anchor" href="#vuejs-paginator-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vue.js Paginator <a href="https://circleci.com/gh/hootlex/vuejs-paginator"><img src="https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&amp;circle-token=:circle-ci-badge-token" alt="CircleCI"></a>
-</h1>
+          <div class="bs-docs-section" id="features">
+            <h1 class="page-header">Features</h1>
+            <h2><small>
+              VueJs Paginator is a simple but powerful plugin, since it gives you access on how to render the data, instead of using a predefined table.
+              <br>
+              Just give it a variable where you want the returned data to be stored.
+              Everytime the user changes page, your variable will update immediatly.
+              <br>
+              The way you use it is similar to Laravel's paginator.
+            </small></h2>
 
-        <blockquote>
-            <p>A Vue.js plugin to easily integrate pagination to your projects.</p>
-        </blockquote>
+        </div>
 
-        <h2>
-<a id="install-through-npm" class="anchor" href="#install-through-npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install Through npm</h2>
 
-        <div class="highlight highlight-source-shell"><pre>npm install vuejs-paginator -save</pre></div>
+          <div class="bs-docs-section" id="action">
+            <h1 class="page-header">In Action</h1>
+            <div class="bs-example">
+              <h3>
+                List animals from a remote source.
+              </h3>
+              <div id="live-example">
+                <ul class="list-group">
+                  <li class="list-group-item" v-for="animal in animals">
+                    {{ animal.name }}
+                  </li>
+                </ul>
+                <h3>
+                  Navigate.
+                </h3>
+                <span class="glyphicon glyphicon-hand-right icon-left animated shake"></span>
+                <v-paginator :options="options" :resource.sync="animals" resource_url="http://hootlex.github.io/vuejs-paginator/samples/animals2.json"></v-paginator>
+                <h3>
+                  $data updates instantly.
+                </h3>
+                <pre>{{ $data | json }}</pre>
+              </div>
+            </div>
+          </div>
 
-        <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
-        <p>Register VPaginator component inside your Vue instance.</p>
+          <div class="bs-docs-section" id="getting-started">
+            <h1 class="page-header">Installation</h1>
+            <h2> Using npm: </h2>
 
-        <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">VuePaginator</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>vuejs-paginator<span class="pl-pds">'</span></span>
-<span class="pl-k">new</span> <span class="pl-en">Vue</span>({
-    <span class="pl-k">...</span>
-    components<span class="pl-k">:</span> {
-        VPaginator<span class="pl-k">:</span> VuePaginator
-    },
-  <span class="pl-k">...</span>
-});</pre></div>
+            <pre><code class="language-bash">
+              npm install vuejs-paginator --save
+            </pre></code>
 
-        <p>Use it in your HTML.</p>
+            <h2> Or from a cdn: </h2>
 
-        <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-paginator</span> :<span class="pl-e">resource</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>animals<span class="pl-pds">"</span></span> :<span class="pl-e">resource</span>_url=<span class="pl-s"><span class="pl-pds">"</span>api/animals<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">v</span><span class="pl-e">-paginator</span>&gt;</pre></div>
+            <pre><code class="language-markup"><script type="prism-html-markup">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.11/vuejs-paginator.js"></script>
+          </script></pre></code>
+        </div>
 
-        <h3>
-<a id="thats-it" class="anchor" href="#thats-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>THATS IT</h3>
+        <div class="bs-docs-section" id="usage">
+          <h1 class="page-header">Usage</h1>
 
-        <p>Then you will have access to the returned data inside your <code>resource</code> variable, in this example <strong>animals</strong>, and you'll be able to render it as you would normally do.</p>
+          <p>Import <code>VuePaginator</code> and define it in your components.</p>
 
-        <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">v</span><span class="pl-e">-for</span>=<span class="pl-s"><span class="pl-pds">"</span>animal in animal<span class="pl-pds">"</span></span>&gt;
-  {{ animal.name }}
-&lt;/<span class="pl-ent">v</span><span class="pl-e">-for</span>&gt;</pre></div>
+          <pre><code class="language-javascript">
+            new Vue({
+              el: 'body',
+              components: {
+                VPaginator: VuePaginator
+              },
+              data: {
+                animals: [],
+                // here you define the url of your paginated API
+                resource_url: 'http://hootlex.github.io/vuejs-paginator/samples/animals1.json'
+              }
+            });
+          </pre></code>
 
-        <h2>
-<a id="build-setup" class="anchor" href="#build-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build Setup</h2>
+          Use it in your HTML
 
-        <div class="highlight highlight-source-shell"><pre><span class="pl-c"># install dependencies</span>
-npm install
+          <pre><code class="language-markup">
+            <script type="prism-html-markup">
+            <v-paginator :resource.sync="animals" :resource_url="resource_url"></v-paginator>
+            </script>
+          </pre></code>
 
-<span class="pl-c"># build for production with minification</span>
-npm run build
+        </div>
 
-<span class="pl-c"># run unit tests</span>
-npm run unit
-<span class="pl-c"># run all tests</span>
-npm <span class="pl-c1">test</span></pre></div>
+        <h4>That's it! You can now render your resource variable (animals) like you would normally do.</h4>
 
-        <footer class="site-footer">
-            <span class="site-footer-owner"><a href="https://github.com/hootlex/vuejs-paginator">Vuejs-paginator</a> is maintained by <a href="https://github.com/hootlex">hootlex</a>.</span>
+        <pre><code class="language-markup">
+          <script type="prism-html-markup">
+          <ul>
+            <li v-for="animal in animals">
+              {{ animal.name }}
+            </li>
+          </ul>
+          </script>
 
-            <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-        </footer>
+        </pre></code>
 
-    </section>
 
-    <script type="text/javascript" src="vuejs-paginator.js"></script>
+        <div class="bs-docs-section" id="configuration">
+          <h1 class="page-header">Configuration (optional)</h1>
+
+          <h2>Available Options</h2>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>offset</td>
+                <td><code>Number</code></td>
+                <td><code>0</code></td>
+                <td>Pixels to offset from top of screen when calculating position of scroll.</td>
+              </tr>
+              <tr>
+                <td>remote_data</td>
+                <td><code>String</code></td>
+                <td>'data'</td>
+                <td>The key on the response object which contains the value for data.</td>
+              </tr>
+              <tr>
+                <td>remote_current_page</td>
+                <td><code>String</code></td>
+                <td>'current_page'</td>
+                <td>The key on the response object which contains the value for current_page.</td>
+              </tr>
+              <tr>
+                <td>remote_last_page</td>
+                <td><code>String</code></td>
+                <td>last_page</td>
+                <td>The key on the response object which contains the value for last_page.</td>
+
+              </tr>
+              <tr>
+                <td>remote_next_page_url</td>
+                <td><code>String</code></td>
+                <td>'next_page_url'</td>
+                <td>The key on the response object which contains the value for next_page_url.</td>
+              </tr>
+              <tr>
+                <td>remote_prev_page_url</td>
+                <td><code>String</code></td>
+                <td>'prev_page_url'</td>
+                <td>The key on the response object which contains the value for prev_page_url.</td>
+              </tr>
+              <tr>
+                <td>previous_button_text</td>
+                <td><code>String</code></td>
+                <td>'Previous'</td>
+                <td>The text value of the previous button.</td>
+              </tr>
+              <tr>
+                <td>next_button_text</td>
+                <td><code>String</code></td>
+                <td>'Next'</td>
+                <td>The text value of the next button.</td>
+              </tr>
+              <tr>
+                <td>headers</td>
+                <td><code>String</code></td>
+                <td>null</td>
+                <td>Additional headers that will be inclued in the HTTP call.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="bs-docs-section" id="action">
+          <h1 class="page-header">Advanced Example</h1>
+          If you want to receive data from an API where the response is something like this:
+
+          <pre><code class="language-javascript">
+            {
+              "nested": {
+                "current_page": 1,
+                "last_page": 3,
+                "next_page_url": "/api/animals?page=2",
+                "prev_page_url": null,
+                "data": [
+                  {
+                    "id": 1,
+                    "name": "Crocodile"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Bobcat"
+                  },
+                  {
+                    "id": 3,
+                    "name": "Elephant"
+                  },
+                  {
+                    "id": 4,
+                    "name": "bandicoot"
+                  },
+                  {
+                    "id": 5,
+                    "name": "barracuda"
+                  }
+                ]
+              }
+            }
+          </code></pre>
+
+
+
+          <div class="bs-example">
+            <h3>
+              Change the texts of the navigation buttons by creating an <code>options</code> object and pass it as a property to the <code>paginator</code>.</h5>
+            </h3>
+            <pre><code class="language-javascript">
+              //if you are using the library from cdn you dont have to do these
+              import Vue from 'vue'
+              import VueResource from 'vue-resource'
+              import VuePaginator from 'vuejs-paginator'
+
+              Vue.use(VueResource)
+              //end if
+
+              new Vue({
+                el: 'body',
+                components: {
+                  VPaginator: VuePaginator
+                },
+                data: {
+                  animals: [],
+                  resource_url: '/api/animals',
+                  options: {
+                      remote_data: 'nested.data',
+                      remote_current_page: 'nested.current_page',
+                      remote_last_page: 'nested.last_page',
+                      remote_next_page_url: 'nested.next_page_url',
+                      remote_prev_page_url: 'nested.prev_page_url',
+                      next_button_text: 'Go Next',
+                      previous_button_text: 'Go Back'
+                  }
+                }
+              });
+            </pre></code>
+            <h3>
+              And in your HTML pass the options prop:
+            </h3>
+            <pre><code class="language-javascript">
+              <script type="prism-html-markup">
+                <v-paginator :options="options" :resource.sync="animals" :resource_url="resource_url"></v-paginator>
+              </script>
+            </pre></code>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="bs-docs-footer ">
+  <div class="container ">
+    <p>
+      Designed and built by <a href="https://twitter.com/hootlex/ ">Alex Kyriakidis (hootlex)</a>.
+    </p>
+    <p>
+      <p>Using <a href="http://twitter.github.com/bootstrap " target="_blank ">Twitter Bootstrap</a> and the <a href="css/docs.css " target="_blank ">Bootstrap's docs styles</a> designed and built by <a href="http://twitter.com/mdo
+        " target="_blank ">@mdo</a> and <a href="http://twitter.com/fat " target="_blank ">@fat</a>.</p>
+      </p>
+      <p>
+        <p>Code licensed under <a href="https://github.com/hootlex/vuejs-paginator/blob/master/LICENSE" target="_blank ">The MIT License</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/ ">CC BY 3.0</a>.</p>
+      </p>
+    </div>
+  </footer>
+  <!-- using cdn version here so it works under gh-pages -->
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.23/vue.js "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js "></script>
+  <script src="precode.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.11/vuejs-paginator.js"></script>
+  <script src="docs.js"></script>
+  <style>
+  .animated {
+      -webkit-animation-duration: 3s;
+      animation-duration: 3s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      animation-iteration-count: infinite
+  }
+  @keyframes shake {
+      0%, 100% {transform: translateX(0);}
+      10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+      20%, 40%, 60%, 80% {transform: translateX(5px);}
+  }
+  .shake {
+      -webkit-animation-name: shake;
+      animation-name: shake;
+  }
+  .icon-left {
+        float: left!important;
+        padding-right: 8px;
+  }
+  </style>
 </body>
 
 </html>
