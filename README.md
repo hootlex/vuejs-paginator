@@ -3,7 +3,9 @@
 > A Vue.js plugin to easily integrate pagination to your projects.
 
 VueJs Paginator is a simple but powerful plugin, since it gives you access on how to render the data, instead of using a predefined table.
+
 Just give it a variable where you want the returned data to be stored. Every time the user changes page, your variable will update immediately.
+
 The way you use it is similar to Laravel's paginator.
 
 >Vuejs Paginator takes a `resource_url` and a `resource` empty variable and it fetches the data from the provided URL. When the call is done, it adds the returned data to the `resource` variable.
