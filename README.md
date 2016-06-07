@@ -19,6 +19,8 @@ npm install vuejs-paginator -save
 ### From a cdn
 ```HTML
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.11/vuejs-paginator.js">
+//OR
+<script src="https://cdn.jsdelivr.net/vuejs-paginator/1.0.11/vuejs-paginator.min.js">
 ```
 
 ## Usage
