@@ -143,11 +143,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	
-	  watch: {
-	    'resource_url': function resource_url() {
-	      this.fetchData();
-	    }
-	  },
 	  methods: {
 	    fetchData: function fetchData(pageUrl) {
 	      pageUrl = pageUrl || this.resource_url;

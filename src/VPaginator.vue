@@ -48,11 +48,6 @@ export default {
       }
     }
   },
-  watch: {
-    'resource_url': function() {
-      this.fetchData()
-    }
-  },
   methods: {
     fetchData (pageUrl) {
       pageUrl = pageUrl || this.resource_url
