@@ -62,12 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var VuePaginator = _VPaginator2.default;
-	
-	VuePaginator.meta = {};
-	window.VuePaginator = VuePaginator;
-	
-	module.exports = VuePaginator;
+	module.exports = _VPaginator2.default;
 
 /***/ },
 /* 1 */,
@@ -154,23 +149,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    handleResponseData: function handleResponseData(response) {
 	      this.makePagination(response);
-	      this.$set('resource', _utils.utils.getNestedValue(response, this.config.remote_data)), this.setPaginationDataGlobally();
+	      this.$set('resource', _utils.utils.getNestedValue(response, this.config.remote_data));
 	    },
 	    makePagination: function makePagination(data) {
 	      this.current_page = _utils.utils.getNestedValue(data, this.config.remote_current_page);
 	      this.last_page = _utils.utils.getNestedValue(data, this.config.remote_last_page);
 	      this.next_page_url = _utils.utils.getNestedValue(data, this.config.remote_next_page_url);
 	      this.prev_page_url = _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
-	    },
-	    setPaginationDataGlobally: function setPaginationDataGlobally() {
-	      try {
-	        VuePaginator.meta.current_page = this.current_page;
-	        VuePaginator.meta.last_page = this.last_page;
-	        VuePaginator.meta.next_page_url = this.next_page_url;
-	        VuePaginator.meta.prev_page_url = this.prev_page_url;
-	      } catch (err) {
-	        console.log('[VuePaginator] Global VuePaginator object not found. You will not have access to VuePaginator.meta data.');
-	      }
 	    },
 	    initConfig: function initConfig() {
 	      this.config = _utils.utils.merge_objects(this.config, this.options);
@@ -183,15 +168,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
+
 	//   <div class="v-paginator">
+
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
+
 	//       {{config.previous_button_text}}
+
 	//     </button>
+
 	//     <span>Page {{current_page}} of {{last_page}}</span>
+
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
+
 	//       {{config.next_button_text}}
+
 	//     </button>
+
 	//   </div>
+
 	// </template>
 
 	// <script>
@@ -233,7 +228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
 
 /***/ }
 /******/ ])
