@@ -4,7 +4,6 @@ import VPaginator from 'dist/vuejs-paginator'
 import {mockedResponse, options} from './data.js'
 Vue.use(VueResource)
 
-console.log(mockedResponse, options)
 describe('VPaginator.vue', () => {
   it('should render the paginator', () => {
     const vm = new Vue({

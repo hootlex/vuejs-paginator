@@ -60,25 +60,13 @@ export default {
     },
     handleResponseData (response) {
       this.makePagination(response)
-      this.$set('resource', utils.getNestedValue(response, this.config.remote_data)),
-      this.setPaginationDataGlobally()
+      this.$set('resource', utils.getNestedValue(response, this.config.remote_data))
     },
     makePagination (data) {
       this.current_page = utils.getNestedValue(data, this.config.remote_current_page)
       this.last_page = utils.getNestedValue(data, this.config.remote_last_page)
       this.next_page_url = utils.getNestedValue(data, this.config.remote_next_page_url)
       this.prev_page_url = utils.getNestedValue(data, this.config.remote_prev_page_url)
-    },
-    setPaginationDataGlobally(){
-      try {
-        VuePaginator.meta.current_page = this.current_page
-        VuePaginator.meta.last_page = this.last_page
-        VuePaginator.meta.next_page_url = this.next_page_url
-        VuePaginator.meta.prev_page_url = this.prev_page_url
-      }
-      catch(err) {
-          console.log('[VuePaginator] Global VuePaginator object not found. You will not have access to VuePaginator.meta data.')
-      }
     },
     initConfig(){
       this.config = utils.merge_objects(this.config, this.options)
