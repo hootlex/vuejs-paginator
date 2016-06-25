@@ -40,7 +40,7 @@ new Vue({
 Use it in your HTML.
 
 ```html
-<v-paginator :resource.sync="animals" :resource_url="api/animals"></v-paginator>
+<v-paginator :resource.sync="animals" resource_url="api/animals"></v-paginator>
 ```
 
 ### THATS IT
