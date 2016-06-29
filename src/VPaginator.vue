@@ -72,6 +72,11 @@ export default {
       this.config = utils.merge_objects(this.config, this.options)
     }
   },
+  watch : {
+    resource_url () {
+      this.fetchData()
+    }
+  },
   created () {
     this.initConfig()
     this.fetchData()

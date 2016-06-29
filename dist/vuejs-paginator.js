@@ -161,6 +161,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.config = _utils.utils.merge_objects(this.config, this.options);
 	    }
 	  },
+	  watch: {
+	    resource_url: function resource_url() {
+	      console.log('changed resource_url');
+	      this.fetchData();
+	    }
+	  },
 	  created: function created() {
 	    this.initConfig();
 	    this.fetchData();
