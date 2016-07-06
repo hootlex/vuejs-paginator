@@ -12,7 +12,7 @@ The way you use it is similar to Laravel's paginator.
 ## Installation
 ### Through npm
 ``` bash
-npm install vuejs-paginator -save
+npm install vuejs-paginator --save-dev
 ```
 
 ### From a cdn
