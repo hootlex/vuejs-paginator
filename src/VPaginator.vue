@@ -65,8 +65,8 @@ export default {
     makePagination (data) {
       this.current_page = utils.getNestedValue(data, this.config.remote_current_page)
       this.last_page = utils.getNestedValue(data, this.config.remote_last_page)
-      this.next_page_url = utils.getNestedValue(data, this.config.remote_next_page_url)
-      this.prev_page_url = utils.getNestedValue(data, this.config.remote_prev_page_url)
+      this.next_page_url = (this.current_page === this.last_page) ? null : utils.getNestedValue(data, this.config.remote_next_page_url);
+      this.prev_page_url = (this.current_page === 1) ? null : utils.getNestedValue(data, this.config.remote_prev_page_url);
     },
     initConfig(){
       this.config = utils.merge_objects(this.config, this.options)
