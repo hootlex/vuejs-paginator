@@ -154,8 +154,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    makePagination: function makePagination(data) {
 	      this.current_page = _utils.utils.getNestedValue(data, this.config.remote_current_page);
 	      this.last_page = _utils.utils.getNestedValue(data, this.config.remote_last_page);
-	      this.next_page_url = _utils.utils.getNestedValue(data, this.config.remote_next_page_url);
-	      this.prev_page_url = _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
+	      this.next_page_url = this.current_page === this.last_page ? "" : _utils.utils.getNestedValue(data, this.config.remote_next_page_url);
+	      this.prev_page_url = this.current_page === 1 ? "" : _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
 	    },
 	    initConfig: function initConfig() {
 	      this.config = _utils.utils.merge_objects(this.config, this.options);
@@ -163,7 +163,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  watch: {
 	    resource_url: function resource_url() {
-	      console.log('changed resource_url');
 	      this.fetchData();
 	    }
 	  },
@@ -174,27 +173,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
-
 	//   <div class="v-paginator">
-
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-
 	//       {{config.previous_button_text}}
-
 	//     </button>
-
 	//     <span>Page {{current_page}} of {{last_page}}</span>
-
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-
 	//       {{config.next_button_text}}
-
 	//     </button>
-
 	//   </div>
-
 	// </template>
-
+	
 	// <script>
 
 /***/ },
@@ -234,7 +223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
 
 /***/ }
 /******/ ])
