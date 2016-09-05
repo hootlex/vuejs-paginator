@@ -51,7 +51,7 @@ export default {
   methods: {
     fetchData (pageUrl) {
       pageUrl = pageUrl || this.resource_url
-      this.$http.get(pageUrl, {}, { headers: this.config.headers })
+      this.$http.get(pageUrl, { headers: this.config.headers })
       .then(function (response) {
         this.handleResponseData(response.data)
       }).catch(function (response) {
