@@ -51,9 +51,10 @@ export default {
   methods: {
     fetchData (pageUrl) {
       pageUrl = pageUrl || this.resource_url
-      this.$http.get(pageUrl, {}, { headers: this.config.headers })
+      var self = this
+      this.$http.get(pageUrl, { headers: this.config.headers })
       .then(function (response) {
-        this.handleResponseData(response.data)
+        self.handleResponseData(response.data)
       }).catch(function (response) {
         console.log('Fetching data failed.', response)
       })

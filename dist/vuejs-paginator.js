@@ -141,8 +141,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  methods: {
 	    fetchData: function fetchData(pageUrl) {
 	      pageUrl = pageUrl || this.resource_url;
-	      this.$http.get(pageUrl, {}, { headers: this.config.headers }).then(function (response) {
-	        this.handleResponseData(response.data);
+	      var self = this;
+	      this.$http.get(pageUrl, { headers: this.config.headers }).then(function (response) {
+	        self.handleResponseData(response.data);
 	      }).catch(function (response) {
 	        console.log('Fetching data failed.', response);
 	      });
@@ -154,8 +155,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    makePagination: function makePagination(data) {
 	      this.current_page = _utils.utils.getNestedValue(data, this.config.remote_current_page);
 	      this.last_page = _utils.utils.getNestedValue(data, this.config.remote_last_page);
-	      this.next_page_url = this.current_page === this.last_page ? "" : _utils.utils.getNestedValue(data, this.config.remote_next_page_url);
-	      this.prev_page_url = this.current_page === 1 ? "" : _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
+	      this.next_page_url = this.current_page === this.last_page ? null : _utils.utils.getNestedValue(data, this.config.remote_next_page_url);
+	      this.prev_page_url = this.current_page === 1 ? null : _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
 	    },
 	    initConfig: function initConfig() {
 	      this.config = _utils.utils.merge_objects(this.config, this.options);
