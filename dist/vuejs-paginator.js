@@ -174,17 +174,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
+
 	//   <div class="v-paginator">
+
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
+
 	//       {{config.previous_button_text}}
+
 	//     </button>
+
 	//     <span>Page {{current_page}} of {{last_page}}</span>
+
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
+
 	//       {{config.next_button_text}}
+
 	//     </button>
+
 	//   </div>
+
 	// </template>
-	
+
 	// <script>
 
 /***/ },
@@ -224,7 +234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
 
 /***/ }
 /******/ ])
