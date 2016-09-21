@@ -1,4 +1,4 @@
-# Vue.js Paginator [![CircleCI](https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/hootlex/vuejs-paginator) <a href="https://www.npmjs.com/package/vuejs-paginator"><img src="https://img.shields.io/npm/v/vuejs-paginator.svg" alt="Version"></a> [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+# Vue.js Paginator [![CircleCI](https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/hootlex/vuejs-paginator) [![npm downloads](https://img.shields.io/npm/dt/vuejs-paginator.svg)](https://www.npmjs.com/package/vuejs-paginator) <a href="https://www.npmjs.com/package/vuejs-paginator"><img src="https://img.shields.io/npm/v/vuejs-paginator.svg" alt="Version"></a> [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 > A Vue.js plugin to easily integrate pagination to your projects.
 
 VueJs Paginator is a simple but powerful plugin, since it gives you access on how to render the data, instead of using a predefined table.
