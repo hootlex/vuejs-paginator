@@ -14,10 +14,6 @@
 import {utils} from './utils'
 export default {
   props: {
-    resource: {
-      required: true,
-      twoWay: true
-    },
     resource_url: {
       type: String,
       required: true
@@ -61,7 +57,8 @@ export default {
     },
     handleResponseData (response) {
       this.makePagination(response)
-      this.$set('resource', utils.getNestedValue(response, this.config.remote_data))
+      let data = utils.getNestedValue(response, this.config.remote_data)
+      this.$emit('update', data)
     },
     makePagination (data) {
       this.current_page = utils.getNestedValue(data, this.config.remote_current_page)

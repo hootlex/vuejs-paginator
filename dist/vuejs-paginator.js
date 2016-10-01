@@ -103,10 +103,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.default = {
 	  props: {
-	    resource: {
-	      required: true,
-	      twoWay: true
-	    },
 	    resource_url: {
 	      type: String,
 	      required: true
@@ -150,7 +146,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    handleResponseData: function handleResponseData(response) {
 	      this.makePagination(response);
-	      this.$set('resource', _utils.utils.getNestedValue(response, this.config.remote_data));
+	      var data = _utils.utils.getNestedValue(response, this.config.remote_data);
+	      this.$emit('update', data);
 	    },
 	    makePagination: function makePagination(data) {
 	      this.current_page = _utils.utils.getNestedValue(data, this.config.remote_current_page);
