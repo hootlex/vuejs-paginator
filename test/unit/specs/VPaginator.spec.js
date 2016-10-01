@@ -52,7 +52,6 @@ describe('VPaginator.vue', () => {
     // check that response data have been reflected to current instance
     expect(resource).to.have.length(5)
   })
-
   it('should merge options with default config', () => {
     const options = { previous_button_text: 'Go back' }
     const vm = new Vue({
