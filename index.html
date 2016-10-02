@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue.js Paginator - Pagination with Vue.js made simple.</title>
-  <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600|Source+Code+Pro' rel='stylesheet' type='text/css'> -->
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600|Source+Code+Pro' rel='stylesheet' type='text/css'>
   <!--
   <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
 -->
@@ -22,7 +22,7 @@
     <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand">VueJS Paginator</a>
+          <a href="#" class="navbar-brand">Vue.js Paginator</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="https://github.com/hootlex/vuejs-paginator">
@@ -57,28 +57,15 @@
     <div class="container bs-docs-container">
       <div class="row">
         <div class="col-md-9">
-          <div class="bs-docs-section" id="getting-started">
-            <h1 class="page-header">What it does
-              <a class="github-button" href="https://github.com/hootlex/vuejs-paginator" data-style="mega" data-count-href="/hootlex/vuejs-paginator/stargazers" data-count-api="/repos/hootlex/vuejs-paginator#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hootlex/vuejs-paginator on GitHub">Star</a></h1>
+            <div class="bs-docs-section" id="features">
+              <h1 class="page-header">Features <a class="github-button" href="https://github.com/hootlex/vuejs-paginator" data-style="mega" data-count-href="/hootlex/vuejs-paginator/stargazers" data-count-api="/repos/hootlex/vuejs-paginator#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hootlex/vuejs-paginator on GitHub">Star</a></h1>
               <div class="bs-callout bs-callout-success">
-                <h4>What it does</h4>
                 <p>
-                  Vuejs Paginator takes a <code>resource_url</code> and a <code>resource</code> empty variable and it fetches the data from the provided URL.
-                  When the call is done, it adds the returned data to the <code>resource</code> variable.
+                  VueJs Paginator is a simple but powerful plugin since it gives you access on how to render the data, instead of using a predefined table.
+                  <br>
+                  It takes a <code>resource_url</code> and generates simple pagination buttons. Every time a page is changed or fetched, it emits an event to update the resource.
                 </p>
               </div>
-            </div>
-
-            <div class="bs-docs-section" id="features">
-              <h1 class="page-header">Features</h1>
-              <h2><small>
-                VueJs Paginator is a simple but powerful plugin since it gives you access on how to render the data, instead of using a predefined table.
-                <br>
-                Just give it a variable where you want the returned data to be stored.
-                Every time the user changes page, your variable will update immediately.
-                <br>
-                The way you use it is similar to Laravel's paginator.
-              </small></h2>
 
             </div>
 
@@ -99,11 +86,11 @@
                     Navigate.
                   </h3>
                   <span class="glyphicon glyphicon-hand-right icon-left animated shake"></span>
-                  <v-paginator :options="options" :resource.sync="animals" resource_url="https://hootlex.github.io/vuejs-paginator/samples/animals2.json"></v-paginator>
+                  <v-paginator :options="options" @update="updateResource" resource_url="https://hootlex.github.io/vuejs-paginator/samples/animals2.json"></v-paginator>
                   <h3>
-                    $data updates instantly.
+                    <code>animals</code> variable contents:
                   </h3>
-                  <pre>{{ $data | json }}</pre>
+                  <pre>{{ animals }}</pre>
                 </div>
               </div>
             </div>
@@ -120,11 +107,9 @@
               <h2> Or from a cdn: </h2>
 
               <pre><code class="language-html">
-                <script type="mock"><script src="https://cdn.jsdelivr.net/vuejs-paginator/1.0.13/vuejs-paginator.min.js"></script></script>
-
-                <script type="mock"><!--or--></script>
-
-                <script type="mock"><script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.13/vuejs-paginator.js"></script></script>
+                &lt;script src=&quot;https://cdn.jsdelivr.net/vuejs-paginator/2.0.0/vuejs-paginator.min.js&quot;&gt;&lt;/script&gt;
+                &lt;!--or--&gt;
+                &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/2.0.0/vuejs-paginator.js&quot;&gt;&lt;/script&gt;
               </code></pre>
           </div>
 
@@ -135,35 +120,43 @@
 
             <pre><code class="language-javascript">
               new Vue({
-                el: 'body',
+                el: '#app',
+                data () {
+                  return {
+                    // The resource variable
+                    animals: [],
+                    // Here you define the url of your paginated API
+                    resource_url: 'http://hootlex.github.io/vuejs-paginator/samples/animals1.json'
+                  }
+                },
                 components: {
                   VPaginator: VuePaginator
                 },
-                data: {
-                  animals: [],
-                  // here you define the url of your paginated API
-                  resource_url: 'http://hootlex.github.io/vuejs-paginator/samples/animals1.json'
+                methods: {
+                  updateResource(data){
+                    this.animals = data
+                  }
                 }
+                ...
               });
             </code></pre>
 
             Use it in your HTML
 
             <pre><code class="language-html">
-              <script type="mock"><v-paginator :resource.sync="animals" :resource_url="resource_url"></v-paginator></script>
+              &lt;v-paginator :resource_url=&quot;resource_url&quot; @update=&quot;updateResource&quot;&gt;&lt;/v-paginator&gt;
             </code></pre>
 
           </div>
 
-          <h4>That's it! You can now render your resource variable (animals) like you would normally do.</h4>
+          <h4>That's it! Every time a page is changed or fetched, resource variable will contain the returned data.</h4>
 
           <pre><code class="language-html">
-            <script type="mock"><ul>
-              <li v-for="animal in animals">
-                {{ animal.name }}
-              </li>
-            </ul>
-            </script>
+            &lt;ul&gt;
+              &lt;li v-for=&quot;animal in animals&quot;&gt;
+                <span v-pre>{{ animal.name }}</span>
+              &lt;/li&gt;
+            &lt;/ul&gt;
           </code></pre>
 
 
@@ -240,9 +233,29 @@
             </table>
           </div>
 
+          <div class="bs-docs-section" id="fetch-data-manually">
+            <h1 class="page-header">Fetch Data Manually</h1>
+            You can fetch data manually in two ways:
+            <ul>
+              <li>By updating the <code>resource_url</code>.</li>
+              <li>By calling Paginator's <code>fetchData()</code> method.</li>
+            </ul>
+            In both ways, the Paginator will emit the <code>update</code> event and update the resource variable.
 
-          <div class="bs-docs-section">
-            <h1 class="page-header">Advanced Example</h1>
+            To access Paginator's <code>fetchData()</code> you have to assign a reference ID to the component using <code>ref</code>. For example:
+            <br><br>
+
+            <pre><code class="language-html">
+                &lt;v-paginator :resource_url=&quot;resource_url&quot; ref=&quot;vpaginator&quot; @update=&quot;updateResource&quot;&gt;&lt;/v-paginator&gt;
+            </code></pre>
+
+            <br>
+            Then you can call <code>vm.$refs.vpaginator.fetchData(resource_url)</code>.
+            If no <code>resource_url</code> is passed, the current page will be fetched again.
+          </div>
+
+          <div class="bs-docs-section" id="customize">
+            <h1 class="page-header">Customize Paginator</h1>
             If you want to receive data from an API where the response is something like this:
 
             <pre><code class="language-javascript">
@@ -294,7 +307,7 @@
                 //end if
 
                 new Vue({
-                  el: 'body',
+                  el: '#app',
                   components: {
                     VPaginator: VuePaginator
                   },
@@ -310,14 +323,19 @@
                       next_button_text: 'Go Next',
                       previous_button_text: 'Go Back'
                     }
+                  },
+                  methods: {
+                    updateResource(data){
+                      this.animals = data
+                    }
                   }
                 });
               </pre></code>
               <h3>
-                And in your HTML pass the options prop:
+                And in your HTML pass the <code>options</code> prop:
               </h3>
               <pre><code class="language-html">
-                <script type="mock"><v-paginator :options="options" :resource.sync="animals" :resource_url="resource_url"></v-paginator></script>
+                &lt;v-paginator :options=&quot;options&quot; :resource_url=&quot;resource_url&quot; @update=&quot;updateResource&quot;&gt;&lt;/v-paginator&gt;
               </code></pre>
             </div>
           </div>
@@ -345,9 +363,9 @@
   <script src="precode.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.23/vue.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0/vue.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.13/vuejs-paginator.js"></script>
+    <script src="https://cdn.jsdelivr.net/vuejs-paginator/2.0.0/vuejs-paginator.min.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script src="docs.js"></script>

@@ -5,11 +5,18 @@ Vue.component('story', {
 
 
 var vm = new Vue({
-    el: 'body',
+    el: '#wrapper',
     components: {
         VPaginator: VuePaginator
     },
     data: {
-        animals: []
+        animals: [],
+        animal: {},
+        options: {},
+    },
+    methods: {
+        updateResource (data) {
+            this.animals = data
+        }
     }
 });
