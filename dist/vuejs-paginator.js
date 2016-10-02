@@ -103,10 +103,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.default = {
 	  props: {
-	    resource: {
-	      required: true,
-	      twoWay: true
-	    },
 	    resource_url: {
 	      type: String,
 	      required: true
@@ -150,7 +146,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    handleResponseData: function handleResponseData(response) {
 	      this.makePagination(response);
-	      this.$set('resource', _utils.utils.getNestedValue(response, this.config.remote_data));
+	      var data = _utils.utils.getNestedValue(response, this.config.remote_data);
+	      this.$emit('update', data);
 	    },
 	    makePagination: function makePagination(data) {
 	      this.current_page = _utils.utils.getNestedValue(data, this.config.remote_current_page);
@@ -174,27 +171,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
-
+	
 	//   <div class="v-paginator">
-
+	
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-
+	
 	//       {{config.previous_button_text}}
-
+	
 	//     </button>
-
+	
 	//     <span>Page {{current_page}} of {{last_page}}</span>
-
+	
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-
+	
 	//       {{config.next_button_text}}
-
+	
 	//     </button>
-
+	
 	//   </div>
-
+	
 	// </template>
-
+	
+	
 	// <script>
 
 /***/ },

@@ -1,13 +1,11 @@
 # Vue.js Paginator [![CircleCI](https://circleci.com/gh/hootlex/vuejs-paginator.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/hootlex/vuejs-paginator) [![npm downloads](https://img.shields.io/npm/dt/vuejs-paginator.svg)](https://www.npmjs.com/package/vuejs-paginator) <a href="https://www.npmjs.com/package/vuejs-paginator"><img src="https://img.shields.io/npm/v/vuejs-paginator.svg" alt="Version"></a> [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
-> A Vue.js plugin to easily integrate pagination to your projects.
+> A Vue.js plugin to easily integrate pagination in your projects.
 
-VueJs Paginator is a simple but powerful plugin, since it gives you access on how to render the data, instead of using a predefined table.
+VueJs Paginator is a simple but powerful plugin since it gives you access on how to render the data, instead of using a predefined table.
 
-Just give it a variable where you want the returned data to be stored. Every time the user changes page, your variable will update immediately.
+![vue paginator preview](http://i.imgur.com/2jah1qt.gif)
 
 The way you use it is similar to Laravel's paginator.
-
->Vuejs Paginator takes a `resource_url` and a `resource` empty variable and it fetches the data from the provided URL. When the call is done, it adds the returned data to the `resource` variable.
 
 ## Installation
 ### Through npm
@@ -23,29 +21,37 @@ npm install vuejs-paginator --save-dev
 ```
 
 ## Usage
-Register VPaginator component inside your Vue instance.
+Use VPaginator in the HTML.
+```html
+<v-paginator resource_url="api/animals" @update="updateResource"></v-paginator>
+```
 
+Prepare the Vue instance.
 ```js
 // if you are not using the cdn version you have to import VuePaginator.
 // import VuePaginator from 'vuejs-paginator'
 new Vue({
-    ...
+    data () {
+      return {
+        animals: []
+      }
+    },
     components: {
         VPaginator: VuePaginator
     },
+    methods: {
+      updateResource(data){
+        this.animals = data
+      }
+    }
   ...
 });
 ```
 
-Use it in your HTML.
+### Thats it
 
-```html
-<v-paginator :resource.sync="animals" resource_url="api/animals"></v-paginator>
-```
+Every time a page is changed or fetched, resource variable will contain the returned data.
 
-### THATS IT
-
-Then you will have access to the returned data inside your `resource` variable, in this example **animals**, and you'll be able to render it as you would normally do.
 ```html
 <ul>
   <li v-for="animal in animals">
@@ -55,7 +61,7 @@ Then you will have access to the returned data inside your `resource` variable, 
 ```
 
 ### Documentation
-[Here you can find a more detailed Documentation along with a few examples.](http://hootlex.github.io/vuejs-paginator/)
+[Here you can find the detailed Documentation](http://hootlex.github.io/vuejs-paginator/)
 
 ## Build Setup
 
