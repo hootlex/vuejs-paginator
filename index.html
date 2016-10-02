@@ -115,16 +115,16 @@
 
               <pre><code class="language-bash">
                 npm install vuejs-paginator --save
-              </pre></code>
+              </code></pre>
 
               <h2> Or from a cdn: </h2>
 
-              <pre><code class="language-markup">
-                <script type="prism-html-markup">
-                  <script src="https://cdn.jsdelivr.net/vuejs-paginator/1.0.13/vuejs-paginator.min.js"></script>
-                    <!--or-->
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.13/vuejs-paginator.js"></script>
-                </script>
+              <pre><code class="language-html">
+                <script type="mock"><script src="https://cdn.jsdelivr.net/vuejs-paginator/1.0.13/vuejs-paginator.min.js"></script></script>
+
+                <script type="mock"><!--or--></script>
+
+                <script type="mock"><script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.13/vuejs-paginator.js"></script></script>
               </code></pre>
           </div>
 
@@ -145,30 +145,26 @@
                   resource_url: 'http://hootlex.github.io/vuejs-paginator/samples/animals1.json'
                 }
               });
-            </pre></code>
+            </code></pre>
 
             Use it in your HTML
 
-            <pre><code class="language-markup">
-              <script type="prism-html-markup">
-              <v-paginator :resource.sync="animals" :resource_url="resource_url"></v-paginator>
-              </script>
-            </pre></code>
+            <pre><code class="language-html">
+              <script type="mock"><v-paginator :resource.sync="animals" :resource_url="resource_url"></v-paginator></script>
+            </code></pre>
 
           </div>
 
           <h4>That's it! You can now render your resource variable (animals) like you would normally do.</h4>
 
-          <pre><code class="language-markup">
-            <script type="prism-html-markup">
-            <ul>
-            <li v-for="animal in animals">
-            {{ animal.name }}
-            </li>
+          <pre><code class="language-html">
+            <script type="mock"><ul>
+              <li v-for="animal in animals">
+                {{ animal.name }}
+              </li>
             </ul>
             </script>
-
-          </pre></code>
+          </code></pre>
 
 
           <div class="bs-docs-section" id="configuration">
@@ -245,7 +241,7 @@
           </div>
 
 
-          <div class="bs-docs-section" id="action">
+          <div class="bs-docs-section">
             <h1 class="page-header">Advanced Example</h1>
             If you want to receive data from an API where the response is something like this:
 
@@ -289,7 +285,7 @@
                 Change the texts of the navigation buttons by creating an <code>options</code> object and pass it as a property to the <code>paginator</code>.</h5>
               </h3>
               <pre><code class="language-javascript">
-                //if you are using the library from cdn you don't have to do these
+                // If you are using the library from cdn you don't have to import these.
                 import Vue from 'vue'
                 import VueResource from 'vue-resource'
                 import VuePaginator from 'vuejs-paginator'
@@ -320,16 +316,11 @@
               <h3>
                 And in your HTML pass the options prop:
               </h3>
-              <pre><code class="language-javascript">
-                <script type="prism-html-markup">
-                <v-paginator :options="options" :resource.sync="animals" :resource_url="resource_url"></v-paginator>
-                </script>
-              </pre></code>
+              <pre><code class="language-html">
+                <script type="mock"><v-paginator :options="options" :resource.sync="animals" :resource_url="resource_url"></v-paginator></script>
+              </code></pre>
             </div>
           </div>
-
-
-
 
 
         </div>
@@ -350,37 +341,16 @@
         </p>
       </div>
     </footer>
-    <!-- using cdn version here so it works under gh-pages -->
+
+  <script src="precode.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.23/vue.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js "></script>
-    <script src="precode.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/1.0.13/vuejs-paginator.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <script src="docs.js"></script>
-    <style>
-    .animated {
-      -webkit-animation-duration: 3s;
-      animation-duration: 3s;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      animation-iteration-count: infinite
-    }
-    @keyframes shake {
-      0%, 100% {transform: translateX(0);}
-      10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
-      20%, 40%, 60%, 80% {transform: translateX(5px);}
-    }
-    .shake {
-      -webkit-animation-name: shake;
-      animation-name: shake;
-    }
-    .icon-left {
-      float: left!important;
-      padding-right: 8px;
-    }
-    </style>
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -391,6 +361,7 @@
     ga('send', 'pageview');
 
     </script>
+
   </body>
 
   </html>
