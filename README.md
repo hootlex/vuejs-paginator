@@ -8,6 +8,8 @@ VueJs Paginator is a simple but powerful plugin since it gives you access on how
 The way you use it is similar to Laravel's paginator.
 
 ## Installation
+> For Vue 1.* use [v1.0.15](https://github.com/hootlex/vuejs-paginator/tree/v1.0.15).
+
 ### Through npm
 ``` bash
 npm install vuejs-paginator --save-dev
