@@ -23,7 +23,7 @@ npm install vuejs-paginator --save-dev
 ```
 
 ## Usage
-> Simplest case
+### Simplest case
 
 Use VPaginator in the HTML.
 ```html
@@ -52,7 +52,7 @@ new Vue({
 });
 ```
 
-### Thats it
+#### Thats it
 
 Every time a page is changed or fetched, resource variable will contain the returned data.
 
@@ -64,14 +64,14 @@ Every time a page is changed or fetched, resource variable will contain the retu
 </ul>
 ```
 
-> With page numbers
+### With page numbers
 
 It's almost the same, the only difference is that you'll have to include `page_numbers` as a prop in the HTML:
 ```html
 <v-paginator page_numbers resource_url="api/animals" @update="updateResource"></v-paginator>
 ```
 
-### And you're good to go!
+#### And you're good to go!
 
 ### Documentation
 [Here you can find the detailed Documentation](http://hootlex.github.io/vuejs-paginator/)
