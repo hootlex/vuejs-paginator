@@ -63,4 +63,48 @@ describe('VPaginator.vue', () => {
     // check that response data have been reflected to current instance
     expect(vm.$children[0].config.previous_button_text).to.equal('Go back')
   })
+  it('should render the paginator with custom button icons', () => {
+    const options = { next_button_icon: 'glyphicon glyphicon-bold' }
+    const vm = new Vue({
+      data: { dummies: [], options: options },
+      template: '<div><v-paginator resource_url="" :options="options"></v-paginator></div>',
+      components: { VPaginator }
+    }).$mount()
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+  })
+  it('should render the paginator with page numbers and icons by default', () => {
+    const vm = new Vue({
+      data: { dummies: [], options: options },
+      template: '<div><v-paginator page_numbers resource_url=""></v-paginator></div>',
+      components: { VPaginator }
+    }).$mount()
+    expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-right"]')).to.exist
+  })
+  it('should render the paginator with page numbers and custom icons', () => {
+    const options = { next_button_icon: 'glyphicon glyphicon-bold' }
+    const vm = new Vue({
+      data: { dummies: [], options: options },
+      template: '<div><v-paginator page_numbers :options="options" resource_url=""></v-paginator></div>',
+      components: { VPaginator }
+    }).$mount()
+    vm.$children[0].initConfig()
+    expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+  })
+  it('should render the paginator with page numbers and custom text and icon overriding the default icons', () => {
+    const options = { previous_button_text: 'Go back', next_button_icon: 'glyphicon glyphicon-bold' }
+    const vm = new Vue({
+      data: { dummies: [], options: options },
+      template: '<div><v-paginator page_numbers :options="options" resource_url=""></v-paginator></div>',
+      components: { VPaginator }
+    }).$mount()
+    vm.$children[0].initConfig()
+    expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
+    expect(vm.$el.querySelector('.v-paginator').textContent).to.contain('Go back')
+    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+  })
 })
