@@ -23,6 +23,8 @@ npm install vuejs-paginator --save-dev
 ```
 
 ## Usage
+> Simplest case
+
 Use VPaginator in the HTML.
 ```html
 <v-paginator resource_url="api/animals" @update="updateResource"></v-paginator>
@@ -61,6 +63,15 @@ Every time a page is changed or fetched, resource variable will contain the retu
   </li>
 </ul>
 ```
+
+> With page numbers
+
+It's almost the same, the only difference is that you'll have to include `page_numbers` as a prop in the HTML:
+```html
+<v-paginator page_numbers resource_url="api/animals" @update="updateResource"></v-paginator>
+```
+
+### And you're good to go!
 
 ### Documentation
 [Here you can find the detailed Documentation](http://hootlex.github.io/vuejs-paginator/)
