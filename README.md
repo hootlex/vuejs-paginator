@@ -66,9 +66,10 @@ Every time a page is changed or fetched, resource variable will contain the retu
 
 ### With page numbers
 
-It's almost the same, the only difference is that you'll have to include `page_numbers` as a prop in the HTML:
+It's almost the same, the only difference is that you'll have to pass `page_numbers: true` within `options` object:
+
 ```html
-<v-paginator page_numbers resource_url="api/animals" @update="updateResource"></v-paginator>
+<v-paginator options="{ page_numbers: true }" resource_url="api/animals" @update="updateResource"></v-paginator>
 ```
 
 #### And you're good to go!
