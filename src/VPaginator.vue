@@ -1,13 +1,13 @@
 <template>
   <div class="v-paginator">
     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-      <span v-if="config.previous_button_icon && !page_numbers || !config.previous_button_text" :class="config.previous_button_icon"></span>
+      <span v-if="config.page_numbers && !options.previous_button_text || options.previous_button_icon" :class="config.previous_button_icon"></span>
       <span v-else>{{config.previous_button_text}}</span>
     </button>
-    <span v-if="page_numbers">
+    <span v-if="config.page_numbers">
       <div class="btn-group" role="group">
         <button
-          v-for="page in pages" @click="fetchData(page.url)"
+          v-for="page in pages" @click="current_page!=page.value ? fetchData(page.url) : ''"
           class="btn btn-default" :class="{'btn-primary': current_page==page.value}">
           {{page.value}}
         </button>
@@ -15,7 +15,7 @@
     </span>
     <span v-else>Page {{current_page}} of {{last_page}}</span>
     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-      <span v-if="config.next_button_icon && !page_numbers || !config.next_button_text" :class="config.next_button_icon"></span>
+      <span v-if="config.page_numbers && !options.next_button_text || options.next_button_icon" :class="config.next_button_icon"></span>
       <span v-else>{{config.next_button_text}}</span>
     </button>
   </div>
@@ -25,11 +25,6 @@
 import {utils} from './utils'
 export default {
   props: {
-    page_numbers: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     resource_url: {
       type: String,
       required: true
@@ -55,16 +50,17 @@ export default {
           remote_last_page: 'last_page',
           remote_next_page_url: 'next_page_url',
           remote_prev_page_url: 'prev_page_url',
-          previous_button_icon: this.page_numbers ? 'glyphicon glyphicon-chevron-left' : '',
-          previous_button_text: this.page_numbers ? '' : 'Previous',
-          next_button_icon: this.page_numbers ? 'glyphicon glyphicon-chevron-right' : '',
-          next_button_text: this.page_numbers ? '' : 'Next'
+          previous_button_icon: 'glyphicon glyphicon-chevron-left',
+          previous_button_text: 'Previous',
+          next_button_icon: 'glyphicon glyphicon-chevron-right',
+          next_button_text: 'Next',
+          page_numbers: false
       }
     }
   },
   computed: {
     pages: function(){
-      if (this.page_numbers) {
+      if (this.config.page_numbers) {
         return utils.createPageNumbers(this.resource_url, this.last_page)
       }
       return {}

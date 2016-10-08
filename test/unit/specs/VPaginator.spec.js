@@ -73,9 +73,10 @@ describe('VPaginator.vue', () => {
     expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
   })
   it('should render the paginator with page numbers and icons by default', () => {
+    const options = { page_numbers: true }
     const vm = new Vue({
       data: { dummies: [], options: options },
-      template: '<div><v-paginator page_numbers resource_url=""></v-paginator></div>',
+      template: '<div><v-paginator :options="options" resource_url=""></v-paginator></div>',
       components: { VPaginator }
     }).$mount()
     expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
@@ -83,10 +84,10 @@ describe('VPaginator.vue', () => {
     expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-right"]')).to.exist
   })
   it('should render the paginator with page numbers and custom icons', () => {
-    const options = { next_button_icon: 'glyphicon glyphicon-bold' }
+    const options = { next_button_icon: 'glyphicon glyphicon-bold', page_numbers: true }
     const vm = new Vue({
       data: { dummies: [], options: options },
-      template: '<div><v-paginator page_numbers :options="options" resource_url=""></v-paginator></div>',
+      template: '<div><v-paginator :options="options" resource_url=""></v-paginator></div>',
       components: { VPaginator }
     }).$mount()
     vm.$children[0].initConfig()
@@ -95,10 +96,10 @@ describe('VPaginator.vue', () => {
     expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
   })
   it('should render the paginator with page numbers and custom text and icon overriding the default icons', () => {
-    const options = { previous_button_text: 'Go back', next_button_icon: 'glyphicon glyphicon-bold' }
+    const options = { previous_button_text: 'Go back', next_button_icon: 'glyphicon glyphicon-bold', page_numbers: true }
     const vm = new Vue({
       data: { dummies: [], options: options },
-      template: '<div><v-paginator page_numbers :options="options" resource_url=""></v-paginator></div>',
+      template: '<div><v-paginator :options="options" resource_url=""></v-paginator></div>',
       components: { VPaginator }
     }).$mount()
     vm.$children[0].initConfig()
