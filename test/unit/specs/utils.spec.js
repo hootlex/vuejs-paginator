@@ -125,4 +125,119 @@ describe('utils', () => {
       { value: 3, url: 'http://foo.bar/json/test3.abcd' }
     ])
   })
+  it('should return an array of objects containing one final ellipsis entry when (# of pages > max_buttons) && (current_page is at start)', () => {
+    const resourceUrl = 'http://foo.bar/json/test2.json'
+    const lastPage = 10
+    const currentPage1 = 1
+    const currentPage2 = 2
+    const currentPage3 = 3
+    const maxButtons = 5
+    const allPages1 = utils.createPageNumbers(currentPage1, resourceUrl, lastPage, maxButtons)
+    expect(allPages1).to.not.be.empty
+    expect(allPages1).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: 2, url: 'http://foo.bar/json/test2.json' },
+      { value: 3, url: 'http://foo.bar/json/test3.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages2 = utils.createPageNumbers(currentPage2, resourceUrl, lastPage, maxButtons)
+    expect(allPages2).to.not.be.empty
+    expect(allPages2).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: 2, url: 'http://foo.bar/json/test2.json' },
+      { value: 3, url: 'http://foo.bar/json/test3.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages3 = utils.createPageNumbers(currentPage3, resourceUrl, lastPage, maxButtons)
+    expect(allPages3).to.not.be.empty
+    expect(allPages3).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: 2, url: 'http://foo.bar/json/test2.json' },
+      { value: 3, url: 'http://foo.bar/json/test3.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+  })
+  it('should return an array of objects containing two ellipsis entry when (# of pages > max_buttons) && (current_page is in middle)', () => {
+    const resourceUrl = 'http://foo.bar/json/test2.json'
+    const lastPage = 10
+    const currentPage1 = 4
+    const currentPage2 = 5
+    const currentPage3 = 6
+    const currentPage4 = 7
+    const maxButtons = 5
+    const allPages1 = utils.createPageNumbers(currentPage1, resourceUrl, lastPage, maxButtons)
+    expect(allPages1).to.not.be.empty
+    expect(allPages1).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 4, url: 'http://foo.bar/json/test4.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages2 = utils.createPageNumbers(currentPage2, resourceUrl, lastPage, maxButtons)
+    expect(allPages2).to.not.be.empty
+    expect(allPages2).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 5, url: 'http://foo.bar/json/test5.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages3 = utils.createPageNumbers(currentPage3, resourceUrl, lastPage, maxButtons)
+    expect(allPages3).to.not.be.empty
+    expect(allPages3).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 6, url: 'http://foo.bar/json/test6.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages4 = utils.createPageNumbers(currentPage4, resourceUrl, lastPage, maxButtons)
+    expect(allPages4).to.not.be.empty
+    expect(allPages4).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 7, url: 'http://foo.bar/json/test7.json' },
+      { value: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+  })
+  it('should return an array of objects containing one begin ellipsis entry when (# of pages > max_buttons) && (current_page is at end)', () => {
+    const resourceUrl = 'http://foo.bar/json/test2.json'
+    const lastPage = 10
+    const currentPage1 = 8
+    const currentPage2 = 9
+    const currentPage3 = 10
+    const maxButtons = 5
+    const allPages1 = utils.createPageNumbers(currentPage1, resourceUrl, lastPage, maxButtons)
+    expect(allPages1).to.not.be.empty
+    expect(allPages1).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, url: 'http://foo.bar/json/test8.json' },
+      { value: 9, url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages2 = utils.createPageNumbers(currentPage2, resourceUrl, lastPage, maxButtons)
+    expect(allPages2).to.not.be.empty
+    expect(allPages2).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, url: 'http://foo.bar/json/test8.json' },
+      { value: 9, url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+    const allPages3 = utils.createPageNumbers(currentPage3, resourceUrl, lastPage, maxButtons)
+    expect(allPages3).to.not.be.empty
+    expect(allPages3).to.deep.equal([
+      { value: 1, url: 'http://foo.bar/json/test1.json' },
+      { value: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, url: 'http://foo.bar/json/test8.json' },
+      { value: 9, url: 'http://foo.bar/json/test9.json' },
+      { value: 10, url: 'http://foo.bar/json/test10.json' }
+    ])
+  })
 })
