@@ -132,7 +132,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        previous_button_text: 'Previous',
 	        next_button_icon: 'glyphicon glyphicon-chevron-right',
 	        next_button_text: 'Next',
-	        page_numbers: false
+	        page_numbers: false,
+	        max_buttons: 7
 	      }
 	    };
 	  },
@@ -140,7 +141,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  computed: {
 	    pages: function pages() {
 	      if (this.config.page_numbers) {
-	        return _utils.utils.createPageNumbers(this.resource_url, this.last_page);
+	        return _utils.utils.createPageNumbers(this.current_page, this.resource_url, this.last_page, this.config.max_buttons);
 	      }
 	      return {};
 	    }
@@ -237,15 +238,62 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return res;
 	};
 	
-	var createPageNumbers = function createPageNumbers(resourceUrl, lastPage) {
+	var createPageNumbers = function createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons) {
 	  var ext = resourceUrl.match(/\.\D*$/) ? resourceUrl.match(/\.\D*$/)[0] : '';
 	  var rootUrl = resourceUrl.replace(new RegExp(ext + '$'), '').replace(/\d*$/, '');
-	  var allPages = {};
-	  for (var p = 1; p <= lastPage; p++) {
-	    allPages['page' + p] = { value: p, url: '' + rootUrl + p + ext };
-	  }
+	  var allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext);
 	  return allPages;
 	};
+	
+	function generatePagesArray(currentPage, totalPages, maxButtons, rootUrl, ext) {
+	  var pages = [];
+	  var halfWay = Math.ceil(maxButtons / 2);
+	  var position = void 0;
+	
+	  if (currentPage <= halfWay) {
+	    position = 'start';
+	  } else if (totalPages - halfWay < currentPage) {
+	    position = 'end';
+	  } else {
+	    position = 'middle';
+	  }
+	
+	  var ellipsesNeeded = maxButtons < totalPages;
+	  var i = 1;
+	  while (i <= totalPages && i <= maxButtons) {
+	    var openingEllipsesNeeded = i === 2 && (position === 'middle' || position === 'end');
+	    var closingEllipsesNeeded = i === maxButtons - 1 && (position === 'middle' || position === 'start');
+	    if (ellipsesNeeded && openingEllipsesNeeded) {
+	      pages.push({ value: '...', url: '' + rootUrl + 2 + ext });
+	    } else if (ellipsesNeeded && closingEllipsesNeeded) {
+	      pages.push({ value: '...', url: '' + rootUrl + (totalPages - 1) + ext });
+	    } else {
+	      var pageNumber = calculatePageNumber(i, currentPage, maxButtons, totalPages);
+	      pages.push({ value: pageNumber, url: '' + rootUrl + pageNumber + ext });
+	    }
+	    i++;
+	  }
+	  return pages;
+	}
+	
+	function calculatePageNumber(i, currentPage, maxButtons, totalPages) {
+	  var halfWay = Math.ceil(maxButtons / 2);
+	  if (i === maxButtons) {
+	    return totalPages;
+	  } else if (i === 1) {
+	    return i;
+	  } else if (maxButtons < totalPages) {
+	    if (totalPages - halfWay < currentPage) {
+	      return totalPages - maxButtons + i;
+	    } else if (halfWay < currentPage) {
+	      return currentPage - halfWay + i;
+	    } else {
+	      return i;
+	    }
+	  } else {
+	    return i;
+	  }
+	}
 	
 	var utils = exports.utils = { mergeObjects: mergeObjects, getNestedValue: getNestedValue, createPageNumbers: createPageNumbers };
 
