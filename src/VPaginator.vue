@@ -55,7 +55,7 @@ export default {
           next_button_icon: 'glyphicon glyphicon-chevron-right',
           next_button_text: 'Next',
           page_numbers: false,
-          max_buttons: 5
+          max_buttons: 7
       }
     }
   },
