@@ -16,14 +16,16 @@ const getNestedValue = (obj, path) => {
   return res
 }
 
-const createPageNumbers = (currentPage, resourceUrl, lastPage, maxButtons) => {
+const createPageNumbers = (currentPage, resourceUrl, lastPage, maxButtons, ellipsesEnabled) => {
   let ext = resourceUrl.match(/\.\D*$/) ? resourceUrl.match(/\.\D*$/)[0] : ''
   let rootUrl = resourceUrl.replace(new RegExp(`${ext}$`), '').replace(/\d*$/, '')
-  let allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext)
+  let allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext, ellipsesEnabled)
   return allPages
 }
 
-function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext) {
+function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext, ellipsesEnabled) {
+  // Sets the default value for maxButtons (7) if the provided maxButtons < 1
+  maxButtons = maxButtons < 1 ? 7 : maxButtons
   let pages = []
   let halfWay = Math.ceil(maxButtons / 2)
   let position
@@ -41,9 +43,9 @@ function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext) 
   while (i <= totalPages && i <= maxButtons) {
     let openingEllipsesNeeded = (i === 2 && (position === 'middle' || position === 'end'))
     let closingEllipsesNeeded = (i === maxButtons - 1 && (position === 'middle' || position === 'start'))
-    if (ellipsesNeeded && openingEllipsesNeeded) {
+    if (ellipsesEnabled && ellipsesNeeded && openingEllipsesNeeded) {
       pages.push({ value: '...', url: `${rootUrl}${2}${ext}` })
-    } else if (ellipsesNeeded && closingEllipsesNeeded) {
+    } else if (ellipsesEnabled && ellipsesNeeded && closingEllipsesNeeded) {
       pages.push({ value: '...', url: `${rootUrl}${totalPages - 1}${ext}` })
     } else {
       let pageNumber = calculatePageNumber(i, currentPage, maxButtons, totalPages)
@@ -56,7 +58,9 @@ function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext) 
 
 function calculatePageNumber (i, currentPage, maxButtons, totalPages) {
   let halfWay = Math.ceil(maxButtons / 2)
-  if (i === maxButtons) {
+  if (maxButtons === 1) {
+    return currentPage
+  } else if (i === maxButtons) {
     return totalPages
   } else if (i === 1) {
     return i

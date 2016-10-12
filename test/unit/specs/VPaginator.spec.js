@@ -177,16 +177,16 @@ describe('VPaginator.vue', () => {
     expect(vm2.$el.querySelector('.v-paginator').textContent).to.not.contain('Next')
   })
   var tests = [
-      {page: 1, expected: '12345...10'},
-      {page: 2, expected: '12345...10'},
-      {page: 3, expected: '12345...10'},
-      {page: 4, expected: '12345...10'},
-      {page: 5, expected: '1...456...10'},
-      {page: 6, expected: '1...567...10'},
-      {page: 7, expected: '1...678910'},
-      {page: 8, expected: '1...678910'},
-      {page: 9, expected: '1...678910'},
-      {page: 10, expected: '1...678910'}
+      {page: 1, ellipses: false, expected: '12345610'},
+      {page: 2, ellipses: true, expected: '12345...10'},
+      {page: 3, ellipses: false, expected: '12345610'},
+      {page: 4, ellipses: true, expected: '12345...10'},
+      {page: 5, ellipses: false, expected: '13456710'},
+      {page: 6, ellipses: true, expected: '1...567...10'},
+      {page: 7, ellipses: false, expected: '15678910'},
+      {page: 8, ellipses: true, expected: '1...678910'},
+      {page: 9, ellipses: false, expected: '15678910'},
+      {page: 10, ellipses: true, expected: '1...678910'}
   ]
   function getMountedComponent (Component, propsData) {
     const Ctor = Vue.extend(Component)
@@ -194,10 +194,10 @@ describe('VPaginator.vue', () => {
     return vm
   }
   tests.forEach(function (test) {
-    it('should generate the page buttons correctly when at the start, middle or end of total pages. Page ' + test.page + ' of 10, expect ' + test.expected, done => {
+    it(`should generate the page buttons correctly. Page: ${test.page} of 10, \`ellipses\` option: ${test.ellipses}. Expect: ${test.expected}`, done => {
       let vm = getMountedComponent(VPaginator, {
         resource_url: '',
-        options: { page_numbers: true }
+        options: { page_numbers: true, ellipses: test.ellipses }
       })
       vm.$set(vm.$data, 'current_page', test.page)
       vm.$set(vm.$data, 'last_page', 10)
