@@ -9,7 +9,7 @@
         <button
           v-for="page in pages" @click="current_page!=page.value ? fetchData(page.url) : ''"
           class="btn btn-default" :class="{'btn-primary': current_page==page.value}">
-          {{page.value}}
+          {{ page.name }}
         </button>
       </div>
     </span>
@@ -56,14 +56,21 @@ export default {
           next_button_text: 'Next',
           page_numbers: false,
           max_buttons: 7,
-          ellipses: true
+          ellipses: true,
+          page_button_text: ''
       }
     }
   },
   computed: {
     pages: function(){
       if (this.config.page_numbers) {
-        return utils.createPageNumbers(this.current_page, this.resource_url, this.last_page, this.config.max_buttons, this.config.ellipses)
+        return utils.createPageNumbers(
+          this.current_page,
+          this.resource_url,
+          this.last_page,
+          this.config.max_buttons,
+          this.config.ellipses,
+          this.config.page_button_text)
       }
       return {}
     }

@@ -24,9 +24,9 @@ describe('utils', () => {
     const allPages = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons)
     expect(allPages).to.not.be.empty
     expect(allPages).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test?page1' },
-      { value: 2, url: 'http://foo.bar/json/test?page2' },
-      { value: 3, url: 'http://foo.bar/json/test?page3' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test?page1' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test?page2' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test?page3' }
     ])
   })
   it('should return an array of objects when given a url with arbitrary (non-numeric) extension', () => {
@@ -37,15 +37,15 @@ describe('utils', () => {
     const allPages2 = utils.createPageNumbers(currentPage, resourceUrl2, lastPage, maxButtons)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.txt' },
-      { value: 2, url: 'http://foo.bar/json/test2.txt' },
-      { value: 3, url: 'http://foo.bar/json/test3.txt' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.txt' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.txt' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.txt' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 2, url: 'http://foo.bar/json/test2.json' },
-      { value: 3, url: 'http://foo.bar/json/test3.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.json' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.json' }
     ])
   })
   it('should return an array of objects when given a url not starting from 1, without extension', () => {
@@ -54,9 +54,9 @@ describe('utils', () => {
     const allPages = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons)
     expect(allPages).to.not.be.empty
     expect(allPages).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test?page1' },
-      { value: 2, url: 'http://foo.bar/json/test?page2' },
-      { value: 3, url: 'http://foo.bar/json/test?page3' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test?page1' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test?page2' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test?page3' }
     ])
   })
   it('should return an array of objects when given a url not starting from 1 && with arbitrary (non-numeric) extension', () => {
@@ -67,15 +67,15 @@ describe('utils', () => {
     const allPages2 = utils.createPageNumbers(currentPage, resourceUrl2, lastPage, maxButtons)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.txt' },
-      { value: 2, url: 'http://foo.bar/json/test2.txt' },
-      { value: 3, url: 'http://foo.bar/json/test3.txt' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.txt' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.txt' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.txt' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 2, url: 'http://foo.bar/json/test2.json' },
-      { value: 3, url: 'http://foo.bar/json/test3.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.json' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.json' }
     ])
   })
   it('should return an array of objects containing one final ellipsis entry when (# of pages > max_buttons) && (current_page is at start)', () => {
@@ -86,27 +86,27 @@ describe('utils', () => {
     const allPages3 = utils.createPageNumbers(currentPage3, resourceUrl, lastPage, maxButtons, ellipsisEnabled)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 2, url: 'http://foo.bar/json/test2.json' },
-      { value: 3, url: 'http://foo.bar/json/test3.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.json' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 2, url: 'http://foo.bar/json/test2.json' },
-      { value: 3, url: 'http://foo.bar/json/test3.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.json' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages3).to.not.be.empty
     expect(allPages3).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 2, url: 'http://foo.bar/json/test2.json' },
-      { value: 3, url: 'http://foo.bar/json/test3.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 2, name: '2', url: 'http://foo.bar/json/test2.json' },
+      { value: 3, name: '3', url: 'http://foo.bar/json/test3.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
   })
   it('should return an array of objects containing two ellipsis entry when (# of pages > max_buttons) && (current_page is in middle)', () => {
@@ -118,35 +118,35 @@ describe('utils', () => {
     const allPages4 = utils.createPageNumbers(currentPage4, resourceUrl, lastPage, maxButtons, ellipsisEnabled)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 4, url: 'http://foo.bar/json/test4.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 4, name: '4', url: 'http://foo.bar/json/test4.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 5, url: 'http://foo.bar/json/test5.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 5, name: '5', url: 'http://foo.bar/json/test5.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages3).to.not.be.empty
     expect(allPages3).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 6, url: 'http://foo.bar/json/test6.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 6, name: '6', url: 'http://foo.bar/json/test6.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages4).to.not.be.empty
     expect(allPages4).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 7, url: 'http://foo.bar/json/test7.json' },
-      { value: '...', url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 7, name: '7', url: 'http://foo.bar/json/test7.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
   })
   it('should return an array of objects containing one begin ellipsis entry when (# of pages > max_buttons) && (current_page is at end)', () => {
@@ -157,27 +157,27 @@ describe('utils', () => {
     const allPages3 = utils.createPageNumbers(currentPage3, resourceUrl, lastPage, maxButtons, ellipsisEnabled)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages3).to.not.be.empty
     expect(allPages3).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
   })
   it('should return an array of objects without ellipsis when `ellipses` option is `false`', () => {
@@ -186,11 +186,11 @@ describe('utils', () => {
     const allPages = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons, ellipsisEnabled)
     expect(allPages).to.not.be.empty
     expect(allPages).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 7, url: 'http://foo.bar/json/test7.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 7, name: '7', url: 'http://foo.bar/json/test7.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
   })
   it('should not return ellipsis buttons when `ellipses` option is set to false', () => {
@@ -200,19 +200,19 @@ describe('utils', () => {
     const allPages2 = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons, ellipsisDisabled)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 7, url: 'http://foo.bar/json/test7.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 7, name: '7', url: 'http://foo.bar/json/test7.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
   })
   it('should set the `max_buttons` value to 7 if the provided value is < 1', () => {
@@ -223,27 +223,36 @@ describe('utils', () => {
     const allPages3 = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons3, ellipsisDisabled)
     expect(allPages1).to.not.be.empty
     expect(allPages1).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: '...', url: 'http://foo.bar/json/test2.json' },
-      { value: 6, url: 'http://foo.bar/json/test6.json' },
-      { value: 7, url: 'http://foo.bar/json/test7.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: '...', name: '...', url: 'http://foo.bar/json/test2.json' },
+      { value: 6, name: '6', url: 'http://foo.bar/json/test6.json' },
+      { value: 7, name: '7', url: 'http://foo.bar/json/test7.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages2).to.not.be.empty
     expect(allPages2).to.deep.equal([
-      { value: 1, url: 'http://foo.bar/json/test1.json' },
-      { value: 5, url: 'http://foo.bar/json/test5.json' },
-      { value: 6, url: 'http://foo.bar/json/test6.json' },
-      { value: 7, url: 'http://foo.bar/json/test7.json' },
-      { value: 8, url: 'http://foo.bar/json/test8.json' },
-      { value: 9, url: 'http://foo.bar/json/test9.json' },
-      { value: 10, url: 'http://foo.bar/json/test10.json' }
+      { value: 1, name: '1', url: 'http://foo.bar/json/test1.json' },
+      { value: 5, name: '5', url: 'http://foo.bar/json/test5.json' },
+      { value: 6, name: '6', url: 'http://foo.bar/json/test6.json' },
+      { value: 7, name: '7', url: 'http://foo.bar/json/test7.json' },
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' },
+      { value: 9, name: '9', url: 'http://foo.bar/json/test9.json' },
+      { value: 10, name: '10', url: 'http://foo.bar/json/test10.json' }
     ])
     expect(allPages3).to.not.be.empty
     expect(allPages3).to.deep.equal([
-      { value: 8, url: 'http://foo.bar/json/test8.json' }
+      { value: 8, name: '8', url: 'http://foo.bar/json/test8.json' }
+    ])
+  })
+  it('should create data for the page buttons with custom text, when required', () => {
+    const resourceUrl = 'http://foo.bar/json/test1.json'
+    const [lastPage, currentPage, maxButtons, ellipsisDisabled, customText] = [1, 1, 1, false, 'Page ']
+    const allPages = utils.createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons, ellipsisDisabled, customText)
+    expect(allPages).to.not.empty
+    expect(allPages).to.deep.equal([
+      { value: 1, name: 'Page 1', url: 'http://foo.bar/json/test1.json' }
     ])
   })
 })

@@ -16,14 +16,14 @@ const getNestedValue = (obj, path) => {
   return res
 }
 
-const createPageNumbers = (currentPage, resourceUrl, lastPage, maxButtons, ellipsesEnabled) => {
+const createPageNumbers = (currentPage, resourceUrl, lastPage, maxButtons, ellipsesEnabled, customText) => {
   let ext = resourceUrl.match(/\.\D*$/) ? resourceUrl.match(/\.\D*$/)[0] : ''
   let rootUrl = resourceUrl.replace(new RegExp(`${ext}$`), '').replace(/\d*$/, '')
-  let allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext, ellipsesEnabled)
+  let allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext, ellipsesEnabled, customText)
   return allPages
 }
 
-function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext, ellipsesEnabled) {
+function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext, ellipsesEnabled, customText = '') {
   // Sets the default value for maxButtons (7) if the provided maxButtons < 1
   maxButtons = maxButtons < 1 ? 7 : maxButtons
   let pages = []
@@ -44,12 +44,12 @@ function generatePagesArray (currentPage, totalPages, maxButtons, rootUrl, ext, 
     let openingEllipsesNeeded = (i === 2 && (position === 'middle' || position === 'end'))
     let closingEllipsesNeeded = (i === maxButtons - 1 && (position === 'middle' || position === 'start'))
     if (ellipsesEnabled && ellipsesNeeded && openingEllipsesNeeded) {
-      pages.push({ value: '...', url: `${rootUrl}${2}${ext}` })
+      pages.push({ name: '...', value: '...', url: `${rootUrl}${2}${ext}` })
     } else if (ellipsesEnabled && ellipsesNeeded && closingEllipsesNeeded) {
-      pages.push({ value: '...', url: `${rootUrl}${totalPages - 1}${ext}` })
+      pages.push({ name: '...', value: '...', url: `${rootUrl}${totalPages - 1}${ext}` })
     } else {
       let pageNumber = calculatePageNumber(i, currentPage, maxButtons, totalPages)
-      pages.push({ value: pageNumber, url: `${rootUrl}${pageNumber}${ext}` })
+      pages.push({ name: customText + pageNumber, value: pageNumber, url: `${rootUrl}${pageNumber}${ext}` })
     }
     i++
   }
