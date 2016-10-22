@@ -1,50 +1,72 @@
 <template>
   <div class="v-paginator">
-    <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-      <span v-if="config.page_numbers && !options.previous_button_text || options.previous_button_icon" :class="config.previous_button_icon"></span>
-      <span v-else>{{config.previous_button_text}}</span>
-    </button>
-    <span v-if="config.page_numbers">
-      <div class="btn-group" role="group">
-        <button
-          v-for="page in pages" @click="current_page!=page.value ? fetchData(page.url) : ''"
-          class="btn btn-default" :class="{'btn-primary': current_page==page.value}">
-          {{ page.name }}
-        </button>
-      </div>
-    </span>
-    <span v-else>Page {{current_page}} of {{last_page}}</span>
-    <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-      <span v-if="config.page_numbers && !options.next_button_text || options.next_button_icon" :class="config.next_button_icon"></span>
-      <span v-else>{{config.next_button_text}}</span>
-    </button>
+    <!-- Paginator with page numbers -->
+    <div v-if="config.page_numbers" class="numbered">
+      <span v-if="config.page_numbers">
+        <div class="btn-group" role="group">
+          <!-- Previous Button -->
+          <button class="btn btn-default change-page" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
+            <span v-if="!options.previous_button_text" :class="config.previous_button_icon"></span>
+            <span v-else>{{config.previous_button_text}}</span>
+          </button>
+
+          <!-- Display a button for each page -->
+          <button v-for="page in pages" @click="current_page != page.value ? fetchData(page.url) : ''"
+                  class="btn btn-default" :class="{'active-page': current_page == page.value}">
+            {{ page.name }}
+          </button>
+
+          <!-- Next Button -->
+          <button class="btn btn-default change-page" @click="fetchData(next_page_url)" :disabled="!next_page_url">
+            <span v-if="!options.next_button_text" :class="config.next_button_icon"></span>
+            <span v-else>{{config.next_button_text}}</span>
+          </button>
+        </div>
+      </span>
+    </div>
+    <!-- Simple Paginator -->
+    <div v-else class="simple">
+      <!-- Previous Button -->
+      <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
+        <span v-if="options.previous_button_icon" :class="config.previous_button_icon"></span>
+        <span v-else>{{config.previous_button_text}}</span>
+      </button>
+
+      <span>Page {{current_page}} of {{last_page}}</span>
+
+      <!-- Next Button -->
+      <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
+        <span v-if="options.next_button_icon" :class="config.next_button_icon"></span>
+        <span v-else>{{config.next_button_text}}</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import {utils} from './utils'
-export default {
-  props: {
-    resource_url: {
-      type: String,
-      required: true
-    },
-    custom_template : '',
-    options: {
-      type: Object,
-      required: false,
-      default () {
-        return {}
+  import {utils} from './utils'
+  export default {
+    props: {
+      resource_url: {
+        type: String,
+        required: true
+      },
+      custom_template: '',
+      options: {
+        type: Object,
+        required: false,
+        default () {
+          return {}
+        }
       }
-    }
-  },
-  data () {
-    return {
-      current_page: '',
-      last_page: '',
-      next_page_url: '',
-      prev_page_url: '',
-      config: {
+    },
+    data () {
+      return {
+        current_page: '',
+        last_page: '',
+        next_page_url: '',
+        prev_page_url: '',
+        config: {
           remote_data: 'data',
           remote_current_page: 'current_page',
           remote_last_page: 'last_page',
@@ -58,57 +80,95 @@ export default {
           max_buttons: 7,
           ellipses: true,
           page_button_text: ''
+        }
       }
-    }
-  },
-  computed: {
-    pages: function(){
-      if (this.config.page_numbers) {
-        return utils.createPageNumbers(
-          this.current_page,
-          this.resource_url,
-          this.last_page,
-          this.config.max_buttons,
-          this.config.ellipses,
-          this.config.page_button_text)
+    },
+    computed: {
+      pages: function () {
+        if (this.config.page_numbers) {
+          return utils.createPageNumbers(
+                  this.current_page,
+                  this.resource_url,
+                  this.last_page,
+                  this.config.max_buttons,
+                  this.config.ellipses,
+                  this.config.page_button_text)
+        }
+        return {}
       }
-      return {}
-    }
-  },
-  methods: {
-    fetchData (pageUrl) {
-      pageUrl = pageUrl || this.resource_url
-      var self = this
-      this.$http.get(pageUrl, { headers: this.config.headers })
-      .then(function (response) {
-        self.handleResponseData(response.data)
-      }).catch(function (response) {
-        console.log('Fetching data failed.', response)
-      })
     },
-    handleResponseData (response) {
-      this.makePagination(response)
-      let data = utils.getNestedValue(response, this.config.remote_data)
-      this.$emit('update', data)
+    methods: {
+      fetchData (pageUrl) {
+        pageUrl = pageUrl || this.resource_url
+        var self = this
+        this.$http.get(pageUrl, {headers: this.config.headers})
+                .then(function (response) {
+                  self.handleResponseData(response.data)
+                }).catch(function (response) {
+          console.log('Fetching data failed.', response)
+        })
+      },
+      handleResponseData (response) {
+        this.makePagination(response)
+        let data = utils.getNestedValue(response, this.config.remote_data)
+        this.$emit('update', data)
+      },
+      makePagination (data) {
+        this.current_page = utils.getNestedValue(data, this.config.remote_current_page)
+        this.last_page = utils.getNestedValue(data, this.config.remote_last_page)
+        this.next_page_url = (this.current_page === this.last_page) ? null : utils.getNestedValue(data, this.config.remote_next_page_url);
+        this.prev_page_url = (this.current_page === 1) ? null : utils.getNestedValue(data, this.config.remote_prev_page_url);
+      },
+      initConfig(){
+        this.config = utils.mergeObjects(this.config, this.options)
+      }
     },
-    makePagination (data) {
-      this.current_page = utils.getNestedValue(data, this.config.remote_current_page)
-      this.last_page = utils.getNestedValue(data, this.config.remote_last_page)
-      this.next_page_url = (this.current_page === this.last_page) ? null : utils.getNestedValue(data, this.config.remote_next_page_url);
-      this.prev_page_url = (this.current_page === 1) ? null : utils.getNestedValue(data, this.config.remote_prev_page_url);
+    watch: {
+      resource_url () {
+        this.fetchData()
+      }
     },
-    initConfig(){
-      this.config = utils.mergeObjects(this.config, this.options)
-    }
-  },
-  watch : {
-    resource_url () {
+    created () {
+      this.initConfig()
       this.fetchData()
     }
-  },
-  created () {
-    this.initConfig()
-    this.fetchData()
   }
-}
 </script>
+
+<style>
+  .numbered button{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  .numbered .active-page {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+  }
+  .numbered .change-page {
+    color: #337ab7;
+    padding: 6px 10px;
+  }
+  .numbered .change-page[disabled] {
+    color: #777;
+  }
+  .simple button {
+    color: #337ab7;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .simple button[disabled] {
+    color: #777;
+  }
+  .v-paginator {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+</style>
