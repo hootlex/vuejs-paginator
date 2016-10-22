@@ -6,7 +6,7 @@ import VPaginator from 'dist/vuejs-paginator'
 import {mockedResponse, options} from './data.js'
 Vue.use(VueResource)
 
-describe('VPaginator.vue', () => {
+describe('VPaginator.vue simple', () => {
   it('should render the paginator', () => {
     const vm = new Vue({
       data: { dummies: [] },
@@ -15,6 +15,7 @@ describe('VPaginator.vue', () => {
     }).$mount()
     expect(vm.$el.querySelector('.v-paginator').textContent).to.contain('Previous')
   })
+
   it('should render the paginator with custom button texts', () => {
     const options = { previous_button_text: 'Go back' }
     const vm = new Vue({
@@ -24,6 +25,7 @@ describe('VPaginator.vue', () => {
     }).$mount()
     expect(vm.$el.querySelector('.v-paginator').textContent).to.contain('Go back')
   })
+
   it('should set pagination data correctly', () => {
     const vm = new Vue({
       data: { dummies: [], options: options },
@@ -38,6 +40,7 @@ describe('VPaginator.vue', () => {
     expect(vm.$children[0].current_page).to.equal(mockedResponse.nested.current_page)
     expect(vm.$children[0].last_page).to.equal(mockedResponse.nested.last_page)
   })
+
   it('should emit update after fetching data', () => {
     var resource = []
     const vm = new Vue({
@@ -54,6 +57,7 @@ describe('VPaginator.vue', () => {
     // check that response data have been reflected to current instance
     expect(resource).to.have.length(5)
   })
+
   it('should merge options with default config', () => {
     const options = { previous_button_text: 'Go back' }
     const vm = new Vue({
@@ -73,7 +77,7 @@ describe('VPaginator.vue', () => {
       template: '<div><v-paginator resource_url="" :options="options"></v-paginator></div>',
       components: { VPaginator }
     }).$mount()
-    expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+    expect(vm.$el.querySelector('.v-paginator > .simple button > span[class="glyphicon glyphicon-bold"]')).to.exist
   })
 
   describe('VPaginator.vue with page numbers', () => {
@@ -87,51 +91,33 @@ describe('VPaginator.vue', () => {
         resource_url: '',
         options: { page_numbers: true }
       })
-      expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-right"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-right"]')).to.exist
     })
+
     it('should render the paginator with page numbers and custom icons', () => {
       const vm = getMountedComponent(VPaginator, {
         resource_url: '',
         options: { next_button_icon: 'glyphicon glyphicon-bold', page_numbers: true }
       })
-      expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-left"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-bold"]')).to.exist
     })
-    it('should render the paginator with page numbers and custom text and icon overriding the default icons', () => {
+
+    it('should render the paginator with page numbers and custom text and icon', () => {
       const vm = getMountedComponent(VPaginator, {
         resource_url: '',
         options: { previous_button_text: 'Go back', next_button_icon: 'glyphicon glyphicon-bold', page_numbers: true }
       })
-      expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
       expect(vm.$el.textContent).to.contain('Go back')
-      expect(vm.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+      expect(vm.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-bold"]')).to.exist
     })
-    it('should atest that icons have precedence over text when both are given within `options`, with and without `page_numbers`', () => {
-      const vm1 = getMountedComponent(VPaginator, {
-        resource_url: '',
-        options: { previous_button_icon: 'glyphicon glyphicon-font', previous_button_text: 'Go back', page_numbers: true }
-      })
-      const vm2 = getMountedComponent(VPaginator, {
-        resource_url: '',
-        options: { previous_button_icon: 'glyphicon glyphicon-bold', previous_button_text: 'Go back', page_numbers: false }
-      })
 
-      expect(vm1.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm1.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
-      expect(vm1.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-font"]')).to.exist
-      expect(vm1.$el.textContent).to.not.contain('Go back')
-      expect(vm1.$el.textContent).to.not.contain('Previous')
-
-      expect(vm2.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.not.exist
-      expect(vm2.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
-      expect(vm2.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
-      expect(vm2.$el.textContent).to.not.contain('Go back')
-    })
-    it('should atest that text have precendence over default icon when only text are given within `options`, with and without `page_numbers`', () => {
+    it('should attest that text have precendence over default icon, with and without `page_numbers`', () => {
       const vm1 = getMountedComponent(VPaginator, {
         resource_url: '',
         options: { previous_button_text: 'Go back', page_numbers: true }
@@ -141,15 +127,16 @@ describe('VPaginator.vue', () => {
         options: { next_button_text: 'Forward, always', page_numbers: false }
       })
 
-      expect(vm1.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm1.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
+      expect(vm1.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.exist
+      expect(vm1.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
       expect(vm1.$el.textContent).to.contain('Go back')
 
-      expect(vm2.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.not.exist
-      expect(vm2.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-right"]')).to.not.exist
+      expect(vm2.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.not.exist
+      expect(vm2.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-right"]')).to.not.exist
       expect(vm2.$el.textContent).to.contain('Forward, always')
     })
-    it('should atest that icon have precendence over default text when only icon are given within `options`, with and without `page_numbers`', () => {
+
+    it('should attest that icon have precendence over default text, with and without `page_numbers`', () => {
       const vm1 = getMountedComponent(VPaginator, {
         resource_url: '',
         options: { previous_button_icon: 'glyphicon glyphicon-font', page_numbers: true }
@@ -159,17 +146,19 @@ describe('VPaginator.vue', () => {
         options: { next_button_icon: 'glyphicon glyphicon-bold', page_numbers: false }
       })
 
-      expect(vm1.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.exist
-      expect(vm1.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
-      expect(vm1.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-font"]')).to.exist
+      expect(vm1.$el.querySelector('.v-paginator > .numbered span > div[class="btn-group"]')).to.exist
+      expect(vm1.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-chevron-left"]')).to.not.exist
+      expect(vm1.$el.querySelector('.v-paginator > .numbered button > span[class="glyphicon glyphicon-font"]')).to.exist
       expect(vm1.$el.textContent).to.not.contain('Previous')
 
-      expect(vm2.$el.querySelector('.v-paginator > span > div[class="btn-group"]')).to.not.exist
-      expect(vm2.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-chevron-right"]')).to.not.exist
-      expect(vm2.$el.querySelector('.v-paginator > button > span[class="glyphicon glyphicon-bold"]')).to.exist
+      expect(vm2.$el.querySelector('.v-paginator > .simple span > div[class="btn-group"]')).to.not.exist
+      expect(vm2.$el.querySelector('.v-paginator > .simple button > span[class="glyphicon glyphicon-chevron-right"]')).to.not.exist
+      expect(vm2.$el.querySelector('.v-paginator > .simple button > span[class="glyphicon glyphicon-bold"]')).to.exist
       expect(vm2.$el.textContent).to.not.contain('Next')
     })
-    var tests = [
+
+    it('should generate the data for page buttons correctly.', done => {
+      var tests = [
         {page: 1, ellipses: false, expected: '12345610'},
         {page: 2, ellipses: true, expected: '12345...10'},
         {page: 3, ellipses: false, expected: '12345610'},
@@ -180,10 +169,9 @@ describe('VPaginator.vue', () => {
         {page: 8, ellipses: true, expected: '1...678910'},
         {page: 9, ellipses: false, expected: '15678910'},
         {page: 10, ellipses: true, expected: '1...678910'}
-    ]
-    tests.forEach(function (test) {
-      it(`should generate the data for page buttons correctly. Page: ${test.page} of 10, \`ellipses\` option: ${test.ellipses}. Expect: ${test.expected}`, done => {
-        const vm = getMountedComponent(VPaginator, {
+      ]
+      tests.forEach(function (test) {
+        let vm = getMountedComponent(VPaginator, {
           resource_url: '',
           options: { page_numbers: true, ellipses: test.ellipses }
         })
@@ -195,6 +183,7 @@ describe('VPaginator.vue', () => {
         })
       })
     })
+
     it('should have a custom page button, when given the `page_button_text` option', done => {
       const vm = getMountedComponent(VPaginator, {
         resource_url: '',
@@ -203,7 +192,7 @@ describe('VPaginator.vue', () => {
       vm.$set(vm.$data, 'current_page', 1)
       vm.$set(vm.$data, 'last_page', 1)
       vm.$nextTick(() => {
-        expect(vm.$el.querySelector('.v-paginator > span > div[class="btn-group"] > button').textContent
+        expect(vm.$el.querySelectorAll('.v-paginator > .numbered span > div[class="btn-group"] > button')[1].textContent
           .replace(/\n*/g, '')
           .trim()).to.equal('Page 1')
         done()
