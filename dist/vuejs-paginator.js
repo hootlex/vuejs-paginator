@@ -138,7 +138,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fetchData: function fetchData(pageUrl) {
 	      pageUrl = pageUrl || this.resource_url;
 	      var self = this;
-	      this.$emit('fetch');
 	      this.$http.get(pageUrl, { headers: this.config.headers }).then(function (response) {
 	        self.handleResponseData(response.data);
 	      }).catch(function (response) {
