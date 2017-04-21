@@ -46,12 +46,15 @@ export default {
   },
   methods: {
     fetchData (pageUrl) {
+      this.$emit("request_start");
       pageUrl = pageUrl || this.resource_url
       var self = this
       this.$http.get(pageUrl, { headers: this.config.headers })
       .then(function (response) {
+        this.$emit("request_finish",response);
         self.handleResponseData(response.data)
       }).catch(function (response) {
+        this.$emit("request_error",response);
         console.log('Fetching data failed.', response)
       })
     },
