@@ -128,12 +128,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        remote_last_page: 'last_page',
 	        remote_next_page_url: 'next_page_url',
 	        remote_prev_page_url: 'prev_page_url',
+	        previous_button_icon: 'glyphicon glyphicon-chevron-left',
 	        previous_button_text: 'Previous',
-	        next_button_text: 'Next'
+	        next_button_icon: 'glyphicon glyphicon-chevron-right',
+	        next_button_text: 'Next',
+	        page_numbers: false,
+	        max_buttons: 7,
+	        ellipses: true,
+	        page_button_text: ''
 	      }
 	    };
 	  },
 	
+	  computed: {
+	    pages: function pages() {
+	      if (this.config.page_numbers) {
+	        return _utils.utils.createPageNumbers(this.current_page, this.resource_url, this.last_page, this.config.max_buttons, this.config.ellipses, this.config.page_button_text);
+	      }
+	      return {};
+	    }
+	  },
 	  methods: {
 	    fetchData: function fetchData(pageUrl) {
 	      pageUrl = pageUrl || this.resource_url;
@@ -156,7 +170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.prev_page_url = this.current_page === 1 ? null : _utils.utils.getNestedValue(data, this.config.remote_prev_page_url);
 	    },
 	    initConfig: function initConfig() {
-	      this.config = _utils.utils.merge_objects(this.config, this.options);
+	      this.config = _utils.utils.mergeObjects(this.config, this.options);
 	    }
 	  },
 	  watch: {
@@ -171,27 +185,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
-	
 	//   <div class="v-paginator">
-	
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-	
-	//       {{config.previous_button_text}}
-	
+	//       <span v-if="config.page_numbers && !options.previous_button_text || options.previous_button_icon" :class="config.previous_button_icon"></span>
+	//       <span v-else>{{config.previous_button_text}}</span>
 	//     </button>
-	
-	//     <span>Page {{current_page}} of {{last_page}}</span>
-	
+	//     <span v-if="config.page_numbers">
+	//       <div class="btn-group" role="group">
+	//         <button
+	//           v-for="page in pages" @click="current_page!=page.value ? fetchData(page.url) : ''"
+	//           class="btn btn-default" :class="{'btn-primary': current_page==page.value}">
+	//           {{ page.name }}
+	//         </button>
+	//       </div>
+	//     </span>
+	//     <span v-else>Page {{current_page}} of {{last_page}}</span>
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-	
-	//       {{config.next_button_text}}
-	
+	//       <span v-if="config.page_numbers && !options.next_button_text || options.next_button_icon" :class="config.next_button_icon"></span>
+	//       <span v-else>{{config.next_button_text}}</span>
 	//     </button>
-	
 	//   </div>
-	
 	// </template>
-	
 	
 	// <script>
 
@@ -204,7 +218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var merge_objects = function merge_objects(obj1, obj2) {
+	var mergeObjects = function mergeObjects(obj1, obj2) {
 	  var obj3 = {};
 	  for (var attrname in obj1) {
 	    obj3[attrname] = obj1[attrname];
@@ -222,17 +236,80 @@ return /******/ (function(modules) { // webpackBootstrap
 	  for (var i = 0; i < path.length; i++) {
 	    res = res[path[i]];
 	  }
-	  if (typeof res == 'undefined') console.log('[VuePaginator] Response doesn\'t contain key ' + originalPath + '!');
+	  if (typeof res === 'undefined') console.log('[VuePaginator] Response doesn\'t contain key ' + originalPath + '!');
 	  return res;
 	};
 	
-	var utils = exports.utils = { merge_objects: merge_objects, getNestedValue: getNestedValue };
+	var createPageNumbers = function createPageNumbers(currentPage, resourceUrl, lastPage, maxButtons, ellipsesEnabled, customText) {
+	  var ext = resourceUrl.match(/\.\D*$/) ? resourceUrl.match(/\.\D*$/)[0] : '';
+	  var rootUrl = resourceUrl.replace(new RegExp(ext + '$'), '').replace(/\d*$/, '');
+	  var allPages = generatePagesArray(currentPage, lastPage, maxButtons, rootUrl, ext, ellipsesEnabled, customText);
+	  return allPages;
+	};
+	
+	function generatePagesArray(currentPage, totalPages, maxButtons, rootUrl, ext, ellipsesEnabled) {
+	  var customText = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : '';
+	
+	  // Sets the default value for maxButtons (7) if the provided maxButtons < 1
+	  maxButtons = maxButtons < 1 ? 7 : maxButtons;
+	  var pages = [];
+	  var halfWay = Math.ceil(maxButtons / 2);
+	  var position = void 0;
+	
+	  if (currentPage <= halfWay) {
+	    position = 'start';
+	  } else if (totalPages - halfWay < currentPage) {
+	    position = 'end';
+	  } else {
+	    position = 'middle';
+	  }
+	
+	  var ellipsesNeeded = maxButtons < totalPages;
+	  var i = 1;
+	  while (i <= totalPages && i <= maxButtons) {
+	    var openingEllipsesNeeded = i === 2 && (position === 'middle' || position === 'end');
+	    var closingEllipsesNeeded = i === maxButtons - 1 && (position === 'middle' || position === 'start');
+	    if (ellipsesEnabled && ellipsesNeeded && openingEllipsesNeeded) {
+	      pages.push({ name: '...', value: '...', url: '' + rootUrl + 2 + ext });
+	    } else if (ellipsesEnabled && ellipsesNeeded && closingEllipsesNeeded) {
+	      pages.push({ name: '...', value: '...', url: '' + rootUrl + (totalPages - 1) + ext });
+	    } else {
+	      var pageNumber = calculatePageNumber(i, currentPage, maxButtons, totalPages);
+	      pages.push({ name: customText + pageNumber, value: pageNumber, url: '' + rootUrl + pageNumber + ext });
+	    }
+	    i++;
+	  }
+	  return pages;
+	}
+	
+	function calculatePageNumber(i, currentPage, maxButtons, totalPages) {
+	  var halfWay = Math.ceil(maxButtons / 2);
+	  if (maxButtons === 1) {
+	    return currentPage;
+	  } else if (i === maxButtons) {
+	    return totalPages;
+	  } else if (i === 1) {
+	    return i;
+	  } else if (maxButtons < totalPages) {
+	    if (totalPages - halfWay < currentPage) {
+	      return totalPages - maxButtons + i;
+	    } else if (halfWay < currentPage) {
+	      return currentPage - halfWay + i;
+	    } else {
+	      return i;
+	    }
+	  } else {
+	    return i;
+	  }
+	}
+	
+	var utils = exports.utils = { mergeObjects: mergeObjects, getNestedValue: getNestedValue, createPageNumbers: createPageNumbers };
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      <span v-if=\"config.page_numbers && !options.previous_button_text || options.previous_button_icon\" :class=\"config.previous_button_icon\"></span>\n      <span v-else>{{config.previous_button_text}}</span>\n    </button>\n    <span v-if=\"config.page_numbers\">\n      <div class=\"btn-group\" role=\"group\">\n        <button\n          v-for=\"page in pages\" @click=\"current_page!=page.value ? fetchData(page.url) : ''\"\n          class=\"btn btn-default\" :class=\"{'btn-primary': current_page==page.value}\">\n          {{ page.name }}\n        </button>\n      </div>\n    </span>\n    <span v-else>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      <span v-if=\"config.page_numbers && !options.next_button_text || options.next_button_icon\" :class=\"config.next_button_icon\"></span>\n      <span v-else>{{config.next_button_text}}</span>\n    </button>\n  </div>";
 
 /***/ }
 /******/ ])
