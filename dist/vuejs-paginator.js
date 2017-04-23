@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -64,10 +64,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = _VPaginator2.default;
 
-/***/ },
+/***/ }),
 /* 1 */,
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(3)
 	
@@ -78,20 +78,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var hotAPI = require("vue-hot-reload-api")
 	hotAPI.install(require("vue"))
 	if (!hotAPI.compatible) return
-	var id = "-!babel!./../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue"
+	var id = "-!babel!../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue"
 	hotAPI.createRecord(id, module.exports)
-	module.hot.accept(["-!babel!./../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue","-!vue-html-loader!./../node_modules/vue-loader/lib/selector.js?type=template&index=0!./VPaginator.vue"], function () {
-	var newOptions = require("-!babel!./../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue")
+	module.hot.accept(["-!babel!../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue","-!vue-html-loader!../node_modules/vue-loader/lib/selector.js?type=template&index=0!./VPaginator.vue"], function () {
+	var newOptions = require("-!babel!../node_modules/vue-loader/lib/selector.js?type=script&index=0!./VPaginator.vue")
 	if (newOptions && newOptions.__esModule) newOptions = newOptions.default
-	var newTemplate = require("-!vue-html-loader!./../node_modules/vue-loader/lib/selector.js?type=template&index=0!./VPaginator.vue")
+	var newTemplate = require("-!vue-html-loader!../node_modules/vue-loader/lib/selector.js?type=template&index=0!./VPaginator.vue")
 	hotAPI.update(id, newOptions, newTemplate)
 	})
 	})()
 	}
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -136,11 +136,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  methods: {
 	    fetchData: function fetchData(pageUrl) {
+	      this.$emit("request_start");
 	      pageUrl = pageUrl || this.resource_url;
 	      var self = this;
 	      this.$http.get(pageUrl, { headers: this.config.headers }).then(function (response) {
+	        this.$emit("request_finish", response);
 	        self.handleResponseData(response.data);
 	      }).catch(function (response) {
+	        this.$emit("request_error", response);
 	        console.log('Fetching data failed.', response);
 	      });
 	    },
@@ -171,33 +174,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
-	
 	//   <div class="v-paginator">
-	
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-	
 	//       {{config.previous_button_text}}
-	
 	//     </button>
-	
 	//     <span>Page {{current_page}} of {{last_page}}</span>
-	
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-	
 	//       {{config.next_button_text}}
-	
 	//     </button>
-	
 	//   </div>
-	
 	// </template>
-	
 	
 	// <script>
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -228,13 +220,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var utils = exports.utils = { merge_objects: merge_objects, getNestedValue: getNestedValue };
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
