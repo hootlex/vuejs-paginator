@@ -51,10 +51,10 @@ export default {
       var self = this
       this.$http.get(pageUrl, { headers: this.config.headers })
       .then(function (response) {
-        this.$emit("request_finish",response);
+        self.$emit("request_finish",response);
         self.handleResponseData(response.data)
       }).catch(function (response) {
-        this.$emit("request_error",response);
+        self.$emit("request_error",response);
         console.log('Fetching data failed.', response)
       })
     },
