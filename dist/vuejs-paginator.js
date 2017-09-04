@@ -123,6 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      next_page_url: '',
 	      prev_page_url: '',
 	      config: {
+		page_text: 'Page',
+	        of_text: 'of',
 	        remote_data: 'data',
 	        remote_current_page: 'current_page',
 	        remote_last_page: 'last_page',
@@ -228,7 +230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>Page {{current_page}} of {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>{{config.page_text}} {{current_page}} {{config.of_text}} {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
 
 /***/ })
 /******/ ])
