@@ -22,6 +22,15 @@ describe('VPaginator.vue', () => {
     }).$mount()
     expect(vm.$el.querySelector('.v-paginator').textContent).to.contain('Go back')
   })
+  it('should render the paginator with custom classes', () => {
+    const options = { classes_next: 'btn btn-primary' }
+    const vm = new Vue({
+      data: { dummies: [], options: options },
+      template: '<div><v-paginator resource_url="" :resource.sync="dummies" :options="options"></v-paginator></div>',
+      components: { VPaginator }
+    }).$mount()
+    expect(vm.$el.querySelector('.btn-primary').textContent).to.contain('Next')
+  })
   it('should set pagination data correctly', () => {
     const vm = new Vue({
       data: { dummies: [], options: options },
