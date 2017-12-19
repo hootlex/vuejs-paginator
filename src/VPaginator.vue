@@ -1,10 +1,10 @@
 <template>
   <div class="v-paginator">
-    <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
+    <button :class="config.classes_prev" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
       {{config.previous_button_text}}
     </button>
     <span>Page {{current_page}} of {{last_page}}</span>
-    <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
+    <button :class="config.classes_next" @click="fetchData(next_page_url)" :disabled="!next_page_url">
       {{config.next_button_text}}
     </button>
   </div>
@@ -40,7 +40,9 @@ export default {
           remote_next_page_url: 'next_page_url',
           remote_prev_page_url: 'prev_page_url',
           previous_button_text: 'Previous',
-          next_button_text: 'Next'
+          next_button_text: 'Next',
+          classes_prev: 'btn btn-default',
+          classes_next: 'btn btn-default'
       }
     }
   },
