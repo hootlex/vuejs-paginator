@@ -19,7 +19,7 @@ npm install vuejs-paginator --save
 ```HTML
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginator/2.0.0/vuejs-paginator.js"></script>
 <!-- or -->
-<script src="https://cdn.jsdelivr.net/vuejs-paginator/2.0.0/vuejs-paginator.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuejs-paginator@2.0.2/dist/vuejs-paginator.min.js"></script>
 ```
 
 ## Usage
