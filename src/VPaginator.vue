@@ -3,7 +3,7 @@
     <button :class="config.classes_prev" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
       {{config.previous_button_text}}
     </button>
-    <span>Page {{current_page}} of {{last_page}}</span>
+    <span>{{config.page_text}} {{current_page}} {{config.of_text}} {{last_page}}</span>
     <button :class="config.classes_next" @click="fetchData(next_page_url)" :disabled="!next_page_url">
       {{config.next_button_text}}
     </button>
@@ -41,6 +41,8 @@ export default {
           remote_prev_page_url: 'prev_page_url',
           previous_button_text: 'Previous',
           next_button_text: 'Next',
+          page_text: 'Page',
+          of_text: 'of',
           classes_prev: 'btn btn-default',
           classes_next: 'btn btn-default'
       }
